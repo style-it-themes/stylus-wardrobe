@@ -1,0 +1,2077 @@
+/* ==UserStyle==
+@name        Stylus Wardrobe
+@namespace   github.com/style-it-themes/stylus-wardrobe
+@homepageURL https://github.com/style-it-themes/stylus-wardrobe
+@supportURL  https://github.com/style-it-themes/stylus-wardrobe/issues/choose
+@version     1.0.0
+@updateURL   https://github.com/style-it-themes/stylus-wardrobe/raw/main/stylus-wardrobe.user.styl
+@description Edit in style; a customizable theme with unique options for Stylus by Openstyles.
+@author      Style-it Themes: the-j0k3r and contributors
+@license     MIT
+
+@preprocessor stylus
+
+@var   select  presets     'Preset theme select' {
+    'Custom colors* ' :                                                'custom-style',
+    'Cobalt         ' :                                                'cobalt'      ,
+    'Material       ' :                                                'material'    ,
+    'Material Darker' :                                                'material-dkr',
+    'Twilight       ' :                                                'twilight'    ,
+    'Solarized Dark ' :                                                'solarized-dk',
+    'Ubuntu         ' :                                                'ubuntu'      ,
+}
+@var color     accent__c               'Accent color '                  #4f74e3
+@var color     white___1               '1st txt      '                  #f2f4ff
+@var color     white___2               '2nd txt      '                  #e0e3f0
+@var color     white___3               '3rd txt      '                  #c4c8dc
+@var color     black___1               '1st bg       '                  #111a22
+@var color     black___2               '2nd bg       '                  #1a2632
+@var color     black___3               '3rd bg       '                  #233343
+@var color     red_____c               'Red          '                  #ee1111
+@var color     orange__c               'Orange       '                  #da532c
+@var color     yellow__c               'Yellow       '                  #ffc40d
+@var color     green___c               'Green        '                  #009926
+@var color     cyan____c               'Cyan         '                  #0099ff
+@var color     blue____c               'Blue         '                  #4f74e3
+@var color     magenta_c               'Magenta      '                  #ff1493
+@var color     violet__c               'Violet       '                  #8a2be2
+@var color     gray____c               'Gray         '                  #a4a9c1
+
+@var checkbox  adaptive_syntax_color 'Adaptive syntax highlighting' 1
+@var checkbox  stwb_syntax_theme     'Stylus syntax highlighting'   1
+@var checkbox  upd_problem_tooltips  'Show update problem tooltips' 1
+@var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages'   1
+@var checkbox  show_details          'Show style details'           0
+
+@var     text  custom_header_width   'Header width    '             280px
+@var     text  font_size             'Editor font size'             12px
+@var     text  c_rad                 'Controls radius '             3px
+
+@var   number  cursor_width          'Cursor width'                 [1, 1, 7, 1]
+@var   select  cursor_color          'Cursor color' {
+     'Custom            ':               'c_c_clr'    ,
+     'Twilight          ':               '#8f9d6a'    ,
+     'Material          ':               '#82aaff'    ,
+     'Solarized Dark    ':               '#268bd2'    ,
+     'Ubuntu            ':               '#e95420'
+}
+@var color c_c_clr                       'Custom cursor color' '#04f911'
+==/UserStyle== */
+vendors = official
+version = 'Stylus Wardrobe v1.0.0'
+g       = global
+t       = transparent
+i       = !important
+// color helpers
+ac      = AC
+ft      = FT
+st      = ST
+tt      = TT
+fb      = FB
+sb      = SB
+tb      = TB
+rd      = RD
+oj      = OJ
+yl      = YL
+gr      = GR
+cy      = CY
+bl      = BL
+mg      = MG
+vi      = VI
+gy      = GY
+
+/{
+  // Generator -> Preset themes.
+  preset_themes = {
+    'custom-style' : {
+      AC: accent__c,
+      FT: white___1,
+      ST: white___2,
+      TT: white___3,
+      FB: black___1,
+      SB: black___2,
+      TB: black___3,
+      RD: red_____c,
+      OJ: orange__c,
+      YL: yellow__c,
+      GR: green___c,
+      CY: cyan____c,
+      BL: blue____c,
+      MG: magenta_c,
+      VI: violet__c,
+      GY: gray____c,
+    }
+    'cobalt'       : {
+      AC: #0088ff,
+      FT: #d8d8d8,
+      ST: #d0d0d0,
+      TT: #c0c0c0,
+      FB: #002240,
+      SB: #002d57,
+      TB: #003a71,
+      RD: #9d1e15,
+      OJ: #ff9d00,
+      YL: #ffee80,
+      GR: #3ad900,
+      CY: #9effff,
+      BL: #0088ff,
+      MG: #ff80e1,
+      VI: #845dc4,
+      GY: #aaaaaa,
+    }
+    'material'     : {
+      AC: #82aaff,
+      FT: #eeffff,
+      ST: #d2e6e6,
+      TT: #bed2d2,
+      FB: #263238,
+      SB: #33434a,
+      TB: #546e7a,
+      RD: #e2363c,
+      OJ: #f78c6c,
+      YL: #ffcc00,
+      GR: #c3e88d,
+      CY: #89ddff,
+      BL: #82aaff,
+      MG: #ff5370,
+      VI: #c792ea,
+      GY: #899f9f,
+    }
+    'material-dkr' : {
+      AC: #82aaff,
+      FT: #eeffff,
+      ST: #d2e6e6,
+      TT: #bed2d2,
+      FB: #212121,
+      SB: #282828,
+      TB: #545454,
+      RD: #e2363c,
+      OJ: #f78c6c,
+      YL: #ffcc00,
+      GR: #c3e88d,
+      CY: #89ddff,
+      BL: #82aaff,
+      MG: #ff5370,
+      VI: #c792ea,
+      GY: #848484,
+    }
+    'solarized-dk' : {
+      AC: #268bd2,
+      FT: #fdf6e3,
+      ST: #eee8d5,
+      TT: #ccc6b3,
+      FB: #002b36,
+      SB: #032933,
+      TB: #063e4d,
+      RD: #dc322f,
+      OJ: #cb4b16,
+      YL: #b58900,
+      GR: #859900,
+      CY: #2aa198,
+      BL: #268bd2,
+      MG: #d33682,
+      VI: #6c71c4,
+      GY: #839496,
+    }
+    'twilight'     : {
+      AC: #8f9d6a,
+      FT: #f7f7f7,
+      ST: #cccccc,
+      TT: #aaaaaa,
+      FB: #141414,
+      SB: #27282e,
+      TB: #323232,
+      RD: #db3607,
+      OJ: #f25c05,
+      YL: #e9C062,
+      GR: #8f9d6a,
+      CY: #00a6a5,
+      BL: #607392,
+      MG: #f28fcd,
+      VI: #8580f2,
+      GY: #777777,
+    }
+    'ubuntu'       : {
+      AC: #e95420,
+      FT: #ffffff,
+      ST: #e6e4e2,
+      TT: #bebbb8,
+      FB: #2C001e,
+      SB: #2c051e,
+      TB: #411934,
+      RD: #e2363c,
+      OJ: #e95420,
+      YL: #e2b436,
+      GR: #64964b,
+      CY: #80aeff,
+      BL: #4b7d96,
+      MG: #964b64,
+      VI: #7d4b96,
+      GY: #aea79f,
+    }
+  }
+
+  // Select active def_preset.
+  for def_preset in preset_themes {
+    if (def_preset == presets) {
+      define('AC', preset_themes[def_preset].AC, g)
+      define('FT', preset_themes[def_preset].FT, g)
+      define('ST', preset_themes[def_preset].ST, g)
+      define('TT', preset_themes[def_preset].TT, g)
+      define('FB', preset_themes[def_preset].FB, g)
+      define('SB', preset_themes[def_preset].SB, g)
+      define('TB', preset_themes[def_preset].TB, g)
+      define('RD', preset_themes[def_preset].RD, g)
+      define('OJ', preset_themes[def_preset].OJ, g)
+      define('YL', preset_themes[def_preset].YL, g)
+      define('GR', preset_themes[def_preset].GR, g)
+      define('CY', preset_themes[def_preset].CY, g)
+      define('BL', preset_themes[def_preset].BL, g)
+      define('MG', preset_themes[def_preset].MG, g)
+      define('VI', preset_themes[def_preset].VI, g)
+      define('GY', preset_themes[def_preset].GY, g)
+    }
+  }
+}
+
+// Color mixin.
+// All colors: `cp: ft gy fb`
+// Legend cp: text-color border-color background-color`
+cp(x, y = 0, z = 0, xi = 1, yi = 1, zi = 1) {
+    if x != 0 && x != '_' {            color: xi is 0 ? x : x }
+    if y != 0 && y != '_' {     border-color: yi is 0 ? y : y }
+    if z != 0 && z != '_' { background-color: zi is 0 ? z : z }
+}
+
+// Color mixin
+// All colors: `cpl: fb 0 gy fb` or `cpl: 0 fb gy fb`
+// Legend  cpl: background background-color order-color text-color`
+clp(w, x, y, z = 0, wi = 1, xi = 1, yi = 1, zi = 1) {
+    if w != 0 && w != '_' { background      : wi is 0 ? w : w }
+    if x != 0 && x != '_' { background-color: xi is 0 ? x : x }
+    if y != 0 && y != '_' { border-color    : yi is 0 ? y : y }
+    if z != 0 && z != '_' { color           : zi is 0 ? z : z }
+}
+
+to_svg(input) {
+    s('\%23%s', unquote(substr(s('%s', rgb(input)), 1, 6)))
+}
+
+// SVG fill/stroke colors.
+fs(x, y = 0, xi = 1, yi = 1) {
+    if x != 0 && x != '_' {   fill: xi is 0 ? x : x }
+    if y != 0 && y != '_' { stroke: yi is 0 ? y : y }
+}
+
+// Border radius mixin.
+rad() { border-radius: arguments }
+
+// Box-shadow mixin.
+bsh() { box-shadow: arguments }
+
+@-moz-document regexp('moz-extension://.*'), regexp('chrome-extension://.*') {
+  // moz-extension - chrome-extension
+  :root {
+    --style-details : unquote(version)
+    --cursor-color  : cursor_color
+    --cursor-width  : cursor_width
+    --font-size     : font_size
+    --header-width  : custom_header_width
+  }
+
+  $fonts = 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace
+
+  /* Cursor width and color setting implementation */
+  .CodeMirror div.CodeMirror-cursor {
+    border-left-width: cursor_width
+    border-color: cursor_color
+  }
+
+  /.CodeMirror {
+    font-family: $fonts
+    font-size: var(--font-size)
+    border: 1px solid rgba(gy, .5)
+    &-hints {
+      clp: sb 0 rgba(gy, .2) 0
+      font-family: $fonts
+      font-size: var(--font-size)
+      -webkit-box-shadow: 2px 3px 5px rgba(fb, .2)
+      -moz-box-shadow: 2px 3px 5px rgba(fb, .2)
+      box-shadow: 2px 3px 5px rgba(fb, .2)
+    }
+
+    &-activeline .applies-to::before {
+      clp: 0 rgba(gy, .2) 0 0
+    }
+
+    &-focused {
+      outline: 0
+      border-color: bl
+      box-shadow: 0 0 3px 0 bl
+    }
+
+    &-hint {
+      color: tt
+
+      &:hover { cp: 0 0 ac }
+      &-active {
+        background-color: ac i
+        color: ft
+      }
+    }
+
+    &-lint-tooltip {
+      background-color: sb
+      color: st
+    }
+
+    &-selected {
+      background-color: rgba(gy, .7); color: ft
+    }
+
+    &-search-match {
+      background: gr
+      border-top: 1px solid lighten(gr, 30%)
+      border-bottom: 1px solid lighten(gr, 30%)
+    }
+  }
+
+  // e.g. searchboxes
+  ::selection {
+    background-color: rgba(gy, .7); color: ft
+  }
+
+  .gutter-bookmark {
+    background: linear-gradient(0deg, hsla(ac, .85) 2px, hsla(ac, .3) 2px)
+  }
+
+  [class*='cm-s'] {
+    .CodeMirror {
+      &-matchingbracket {
+        color: lighten(gr, 20%) i
+        font-weight: 900
+        outline: 0
+        border-bottom: 2px solid lighten(gr, 20%)
+      }
+
+      &-gutter-wrapper ::selection {
+        background-color: rgba(gy, .7); color: fb
+      }
+
+      &-line {
+        &::selection {
+          background-color: rgba(gy, .7); color: fb
+        }
+        > span {
+          &::selection {
+            background-color: rgba(gy, .7); color: fb
+          }
+          > span::selection {
+            background-color: rgba(gy, .7); color: fb
+          }
+        }
+      }
+
+      &-nonmatchingbracket {
+        color: lighten(yl, 20%) i
+        font-weight: 900
+        outline: 0
+        border-bottom: 2px solid lighten(yl, 20%)
+      }
+
+      // Tweak foldmarker
+      &-foldmarker {
+        color: ft
+        text-shadow: none
+        font-size: 18px
+      }
+
+      &-linenumber, &-guttermarker-subtle {
+        &:hover { color: st }
+      }
+    }
+  }
+
+  // By default stylus hides these important messages
+  // e.g. https://github.com/openstyles/stylus/issues/463
+  if (upd_problem_tooltips) {
+    .newUI .update-problem .check-update {
+      // set text decor due to z-index fix i.e. remove underline
+      text-decoration: inherit
+      // fix z-index show ontop on controls
+      &::after {
+        content: attr(title)
+        background: darken(rd, 50%)
+        border: 1px solid rd
+        color: st
+
+        top: 0
+        left: 1px
+        padding: 1ex 1.1ex
+
+        position: relative
+        rad: c_rad
+        z-index: 999
+      }
+    }
+  }
+
+  // Feat: wrap lint messages
+  if (wrap_lint_a_bx_msgs) {
+    #lint td[role='message' i] {
+      min-width: calc(var(--header-width) - 90px)
+      white-space: pre-wrap
+    }
+
+    #message-box.pre #message-box-contents {
+        white-space: pre-wrap
+    }
+  }
+
+  a {
+    cp: st 0 0
+    outline: 0
+    &:hover, &:focus-within {
+      cp: ac 0 0
+      .svg-icon { fs: ac 0 }
+
+      // style focus-within add-style-label button
+      button {
+        clp: 0 tb ac ac
+      }
+    }
+    // focus-within control icons
+    &[tabindex]:focus-within {
+      .svg-icon {
+        fs: ac
+      }
+    }
+  }
+
+  .firefox body {
+    cp: st 0 fb
+  }
+
+  body {
+    cp: st 0 fb
+
+    font: normal 12px Arial, system-ui, sans-serif
+
+    &.all-styles-hidden-by-filters {
+
+      &::after, &::before {
+        color: rgba(gy, .4)
+      }
+    }
+
+    &:lang(ja) {
+      font-family: Arial, 'Meiryo UI', 'MS Gothic', system-ui, sans-serif
+    }
+
+    &:lang(zh-CN) {
+      font-family: Arial, 'Microsoft YaHei UI', 'Microsoft YaHei', system-ui, sans-serif
+    }
+
+    &:lang(zh-TW), &:lang(zh-HK) {
+      font-family: Arial, 'Microsoft JhengHei UI', 'Microsoft JhengHei', system-ui, sans-serif
+    }
+
+    &.find-open {
+      .search-target-editor {
+        box-shadow: 0 0 0 1px oj
+        /* same as our global.css focus rule */
+        outline: 0
+      }
+
+      .cm-searching {
+        background-color: yl
+
+        if (!(light(yl))) { color: ft }
+        else { color: fb }
+
+        &.search-target-match {
+          background-color: gr
+
+          if (!(light(gr))) { color: ft }
+          else { color: fb }
+        }
+      }
+
+      .CodeMirror-search-match {
+        background: fb i
+        border-top: 2px solid lighten(gr, 30%)
+        padding-bottom: 2px
+        border-bottom: 2px solid lighten(gr, 30%)
+      }
+    }
+  }
+
+  #stylus-embedded-options {
+    animation: fadein .25s ease-in-out
+    background-color: rgba(sb, .45)
+
+    &.fadeout {
+      animation: fadeout .25s ease-in-out
+    }
+  }
+
+  #stylus-options {
+    border: 1px solid rgba(gy, .3)
+    box-shadow: 0px 5px 15px 3px darken(fb, 30%)
+    rad: c_rad
+    #options {
+      cp: 0 0 sb
+
+      rad: 0 0 c_rad c_rad
+    }
+
+    #actions {
+      background-color: rgba(TB, .5)
+      border-top: 1px solid rgba(GY, .2)
+    }
+  }
+
+  #options-title {
+    background-color: tb
+    border-bottom: 1px solid rgba(gy, .2)
+    rad: c_rad c_rad 0 0
+    min-height: 52px
+    // Align Tittle to left like other dialog headers
+    padding: .75rem 24px .75rem calc(12% - 2px)
+    &::before {
+      left: .8em
+      filter: grayscale(1)
+    }
+
+    // Align close icon
+    #options-close-icon {
+      top: .8em
+      right: .8em
+
+      .svg-icon {
+        fs: st 0
+
+        transition: fill .5s
+      }
+
+      &:hover .svg-icon {
+        fs: ac 0
+      }
+    }
+  }
+
+  #advanced.collapsible {
+    h1, &.collapsed:hover h1 { color: tt }
+
+    &:not(.collapsed) h1:hover, &.collapsed h1 {
+      color: bl
+    }
+  }
+
+  .collapsible-resizer .svg-icon {
+    fill: #333;
+    transition: fill .5s;
+    height: 16px;
+    width: 16px;
+  }
+
+  /button {
+    background-color: tb
+    background-image: none i
+    border: 1px solid rgba(gy, .5)
+    color: st
+
+    rad: c_rad
+    font: inherit;
+    transition: color .5s
+    &:not(:disabled):hover,
+    &:not(:disabled):focus-within {
+      background-color: tb
+      border: 1px solid ac
+      color: ac
+      outline: 0
+    }
+
+    &:active {
+      background-color: tb
+      border-color: rgba(gy, .5)
+    }
+
+    &:disabled {
+      /* restore disabled state dimming */
+      cp: rgba(gy, .5) rgba(gy, .2) tb
+    }
+  }
+
+  /input {
+    &[type]:not(.slider) {
+      transition: all .5s
+      rad: c_rad
+      outline: 0
+      -webkit-appearance: none
+      -moz-appearance: none
+      appearance: none
+      &[data-focused-via-click]:focus {
+        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      }
+    }
+
+    &:not([type]) {
+      clp: fb 0 rgba(gy, .3) tt
+
+      rad: c_rad
+      outline: 0
+      &[data-focused-via-click]:focus {
+        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      }
+    }
+
+    &[type='checkbox' i] {
+      &:not(.slider) {
+        background-color: rgba(fb, .1)
+        border: 1px solid rgba(gy, .5)
+
+        height: 14px
+        width: 14px
+
+        &:hover, &:focus-within {
+          background-color: tb
+          border: 1px solid ac
+
+          .svg-icon.checked { fs: ac }
+        }
+        &:not([disabled]):hover .svg-icon.checked, &:focus-within .svg-icon.checked {
+            fs: ac 0
+        }
+        &:disabled {
+          background-color: t
+          border-color: rgba(gy, .5)
+
+          + .svg-icon.checked {
+            fill: rgba(gy, .5) i
+
+            + span {
+              color: rgba(gy, 1)
+            }
+          }
+        }
+
+        &:checked {
+          + .svg-icon.checked {
+            transition: fill .2s
+          }
+          &:hover, &:focus-within {
+            + .svg-icon.checked {
+              fs: ac 0
+            }
+          }
+        }
+      }
+    }
+
+    &[type='color' i] {
+      background: t
+      border: 1px solid rgba(gy, .5)
+      cursor: pointer
+      // tweak padding to make color input more alike cross FF and C
+      padding: 3px
+      &:hover {
+        cp: 0 ac tb
+      }
+    }
+
+    &[type='number' i], &[type='search' i], &[type='search' i]#search {
+      clp: fb 0 0 tt
+      border: 1px solid rgba(gy, .5)
+
+      height: 25px
+      padding-left: .25em
+      text-align: left
+      &:hover, &:focus-within {
+        cp: 0 ac tb
+        outline: 0
+      }
+      &[data-focused-via-click]:focus {
+        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      }
+    }
+
+    &[type='radio' i] {
+      background: tb //hsl(0, 0%, 100%);
+      border: 1px solid rgba(gy, .5)
+
+      border-radius: 50%
+      cursor: pointer
+      height: 14px
+      width: 14px
+
+      &::after {
+        background-color: t
+        height: 8px
+        width: 8px
+      }
+
+      &:checked::after {
+        background-color: st
+        transform: scale(1)
+      }
+
+      &:invalid { cp: rd darken(rd, 50%) darken(rd, 70%) }
+    }
+
+    &[type='text' i], &[type='search' i], &[type='number' i] {
+      &[data-focused-via-click]:focus {
+         box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      }
+    }
+
+    &[type='search' i]#search { height: 22px }
+
+    &[type='number' i][id*='tabSize'] { margin-bottom: 2px }
+
+    // Width -> Number of applies-to items input min-width
+    &[type='number' i][id*='targets'] { min-width: 40px}
+
+    &[type='range' i] {
+      clp: 0 tb tb ft
+      height: 6px
+
+      &:hover { background-color: rgba(gy, .3) }
+
+      &::-moz-range-thumb {
+        background: ac
+
+        appearance: none
+        cursor: pointer
+        height: 15px
+        width: 15px
+        rad: 50%
+        transition: background .2s
+        &:hover {
+          background: lighten(ac, 10%)
+        }
+      }
+
+      &::-moz-range-progress {
+        background: rgba(ac, .5)
+        height: 5px
+        rad: 2px
+      }
+
+      &
+
+      &[data-focused-via-click]:focus {
+        box-shadow: none i
+      }
+    }
+
+    &[type='text' i] {
+      cp: tt 0 fb
+      border: 1px solid rgba(gy, .5)
+      &:hover {
+        cp: 0 ac tb
+      }
+    }
+
+    &:invalid { cp: tt darken(rd, 50%) darken(rd, 70%) }
+  }
+
+  textarea {
+    &[data-focused-via-click]:focus {
+      box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+    }
+  }
+
+  @supports (-moz-appearance: none) {
+    // We can customize everything about number inputs except arrows.
+    // They're horrible in Linux FF, so we'll hide them unless hovered or focused.
+    .firefox.non-windows input {
+      &[type='number' i] {
+        -moz-appearance: textfield
+        cp: tt 0 fb
+        border: 1px solid rgba(gy, .5)
+
+        rad: c_rad
+
+        &:not(:disabled):hover,
+        &:focus, &:focus-within {
+          -moz-appearance: number-input
+          appearance: number
+          cp: 0 ac tb
+        }
+      }
+
+      &[type='color' i] {
+        background: sb
+        border: 1px solid rgba(gy, .5)
+        &:hover {
+          cp: 0 ac tb
+        }
+      }
+    }
+  }
+  /* override the browser built in style for checkbox sliders */
+  /.onoffswitch {
+    span {
+      background-color: tb
+      border-color: ac
+      transition: background .25s
+      &::before {
+        background: darken(gy, 30%)
+        box-shadow: none
+      }
+
+      &:hover { background-color: rgba(gy, .3) }
+    }
+
+    input:checked + span {
+      background-color: tb
+      border-color: tt
+
+      &::before {
+        border-color: tt
+        background-color: ac
+        box-shadow: none
+      }
+
+      &:hover { background-color: rgba(gy, .3) }
+    }
+  }
+
+  #basic-info-name #name[disabled] {
+    rad: c_rad
+    cursor: not-allowed
+    &:hover {
+      cp: 0 ac tb
+    }
+  }
+
+  .usercss #name {
+    cp: tt 0 tb
+    border: 1px solid rgba(gy, .2)
+  }
+
+  #footer a {
+    color: #333
+    transition: color 0.5s
+    &:hover {
+      color: #333
+    }
+  }
+
+  .svg-icon {
+    transition: fill .5s
+    fs: st
+    &.checked {
+      height: 10px
+      width: 10px
+      fill: st
+      &:hover, &:focus-within {
+        fill: ac i
+        outline: 0
+      }
+    }
+
+    &.select-arrow {
+      fill: st
+      transition: fill .5s
+    }
+
+    &:hover {
+      fill: ac
+    }
+
+    &.info, &.settings {
+      fill: tt
+
+      &:hover, &:focus-within {
+        fill: ac
+        outline: 0
+      }
+    }
+  }
+
+  .svg-inline-wrapper {
+    .svg-icon {
+      fs: st
+    }
+
+    &:hover {
+      .svg-icon {
+        fs: ac
+      }
+    }
+  }
+
+  label {
+    transition: color .1s
+  }
+
+  // Style usercss popup select
+  .select-resizer select {
+      background-color: tb
+      border: 1px solid rgba(gy, .5)
+      color: st
+      &:hover, &:focus-within {
+        background-color: tb
+        border-color: ac
+        color: ac i
+      }
+  }
+
+  /select {
+    background-color: t
+    border: 1px solid rgba(gy, .5)
+    color: st
+    cursor: pointer
+    rad: c_rad
+    transition: all .5s
+    &[data-focused-via-click],
+    &.applies-type, &.cloud-name {
+      background-color: tb
+      border: 1px solid rgba(gy, .5)
+      color: st
+      &:hover, &:focus-within {
+        background-color: tb
+        border-color: ac
+        color: ac
+      }
+    }
+
+    &:disabled {
+      /* restore disabled state dimming */
+      color: rgba(gy, .5)
+
+      + .select-arrow {
+        fill: tt
+      }
+    }
+
+    &[disabled] {
+      > option { color: rgba(gy, .5) }
+
+      + .select-arrow { fill: tt }
+    }
+
+    option {
+      appearance: none
+      cp: st 0 fb
+      rad: c_rad
+      &:disabled {
+        /* restore disabled state dimming */
+        color: rgba(gy, .5)
+      }
+    }
+  }
+
+  // Style optgroup
+  optgroup {
+    cp: st 0 tb
+  }
+
+  // Edit CSS
+  #global-progress {
+    background-color: hsla(ac, .25)
+    border-left: 0 solid ac
+    transition: opacity 2s
+
+    &[title] { opacity: 1 }
+  }
+
+  #header {
+    border-right: 1px solid darken(gy, 50%)
+    box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
+    -webkit-box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
+    width: var(--header-width)
+    summary {
+      outline: 0
+      &:hover h2 {
+        border-color: gy
+      }
+      &:focus-within h2,
+      &:focus-within::marker {
+        color: ac
+        outline: 0
+      }
+    }
+
+    // Opinionated select bg color see #filters below:
+    select {
+      cp: st 0 tb
+      outline: 0
+      &:hover, &:focus-within {
+        background-color: tb
+        border: 1px solid ac
+        color: ac
+      }
+    }
+
+    // add hover fill to select-arrow
+    .select-resizer:hover,
+    .select-wrapper:hover,
+    .sorter-selection:hover {
+      .select-arrow {
+        fill: ac
+      }
+    }
+  }
+
+  .fixed-header #header {
+    background-color: tb
+  }
+
+  // Dont style filters select bg due to opinionated bg color
+  #filters {
+    border: 1px solid t
+    select:not(#manage\.newUI\.sort) {
+      background-color: t
+
+      border: 0
+      outline: 0
+      &:hover {
+        background-color: t
+        border: 0
+      }
+    }
+
+    label:hover, .filter-selection:hover {
+      background-color: t
+    }
+  }
+
+  .active #filters-stats {
+    background-color: gr
+    border-color: gr
+    color: ft
+
+    padding: 5px 5px 3px 5px
+    rad: c_rad
+  }
+
+  #reset-filters {
+    svg {
+      fill: tt
+    }
+    &:hover svg {
+      fill: ac
+    }
+  }
+
+  #preview-errors {
+    background-color: rd
+    color: st
+
+    border-radius: 9px
+  }
+
+  // Multi section editor code label tweaks
+  #sections > .section > label {
+    align-self: center
+    font-size: 20px
+    font-weight: 600
+  }
+
+  // Multi-section -> allow first section margin due to searchbox overlap
+  .section-editor .section {
+    margin-top: 1rem
+    padding: 1rem
+
+    &:not(:first-child) {
+      border-top: 2px dotted rgba(gy, .3)
+    }
+  }
+
+  // Style applies-to on selected
+  #toc li {
+    &:hover { clp: 0 t 0 ac }
+  }
+
+  .applies-to {
+    .target:hover {
+      cp: 0 0 rgba(tb, .3)
+    }
+
+    label { color: st }
+
+    input {
+      background: fb
+      border: 1px solid rgba(gy, .5)
+      color: st
+      transition: all .25s
+      // fix margin
+      margin-right: 4px
+      rad: c_rad
+      &:hover, &:focus {
+        background-color: tb
+        border-color: ac
+      }
+    }
+
+    select {
+      background: tb
+      border: 1px solid rgba(gy, .5)
+      color: st
+      transition: all .25s
+      &:hover {
+        background-color: tb
+        border-color: ac
+      }
+    }
+
+    button {
+      background-color: tb
+      border: 1px solid rgba(gy, .5)
+      color: st i
+      transition: all .25s
+      &:hover, &:focus-within {
+        background-color: tb
+        border-color: ac
+        color: ac i
+        outline: 0
+      }
+
+      &:active {
+        background-color: tb
+        border-color: ac
+      }
+
+      &:disabled {
+        /* restore disabled state dimming */
+        color: rgba(gy, .5) i
+      }
+    }
+  }
+
+  .add-applies-to,
+  .remove-applies-to {
+    .svg-icon { fs: tt }
+
+    &:hover {
+      .svg-icon { fs: ac }
+    }
+  }
+
+  .regexp-report {
+    mark {
+      background-color: rgba(yl, .5)
+    }
+    details {
+      &[data-type='full'] { color: gr }
+
+      &[data-type='partial'] { color: gy }
+
+      &[data-type='invalid'] { color: rd }
+
+      & a { color: inherit }
+
+      /.regexp-report-note { color: tt }
+    }
+  }
+
+  #regexp-explanation {
+    background-color: ft
+    transform: translateY(-50%)
+    border-top: 2px solid black
+    border-bottom: 2px solid black
+    box-shadow: 0 0 100px black
+  }
+
+  #help-popup {
+    background-color: sb
+    box-shadow: 3px 3px 10px rgba(sb, .5)
+    border: 1px solid rgba(gy, .3)
+    rad: c_rad
+    // Align dismiss align
+    .dismiss {
+      top: .7em
+      right: .5em
+    }
+
+    &.big {
+      box-shadow: rgba(fb, .9) 0 0 0 99999px i
+      left: calc(var(--header-width) - 3rem)
+    }
+
+    .title {
+      background-color: tb
+      border-bottom: 1px solid rgba(gy, .1)
+      rad: c_rad c_rad 0 0
+    }
+  }
+
+  .keymap-list {
+    tr:nth-child(odd) { background-color: rgba(fb, .4) }
+  }
+
+  #lint {
+    tr:hover { background-color: rgba(fb, .1) }
+  }
+
+  .beautify-options select {
+    background: tb
+    border: 1px solid rgba(gy, .5)
+    color: st
+    transition: all .25s
+    &:hover {
+      background-color: tb
+      border-color: ac
+    }
+  }
+
+  .beautify-hint input {
+    background-color: fb
+    border: 1px solid rgba(gy, .5) i
+    color: st
+
+    margin-top: 5px
+    height: 25px
+    transition: all .25s
+    rad: c_rad
+    &:hover {
+      background-color: tb i
+      border-color: ac i
+    }
+  }
+
+  // kill :focus used in check updates log viewer
+  // custom #message-box-contets:focus below.
+  /:focus {
+    outline: 0
+    box-shadow: none
+  }
+
+  // Message box
+  #message-box {
+    background-color: rgba(fb, .8)
+    animation: fadein .25s ease-in-out
+
+    &-buttons {
+      background-color: tb
+
+      rad: c_rad
+      button:not(:disabled):hover {
+        background-color: sb
+        border-color: ac
+      }
+    }
+
+    // tweak space bbelwoe last label especially containing a color swatch
+    &.config-dialog {
+      #message-box-contents {
+        min-width: var(--header-width)
+        label:last-of-type {
+          padding-bottom: .5rem
+        }
+      }
+    }
+
+    // because we killed :focus {} to stop random outlines where not wanted.
+    &-contents:focus {
+      outline: 1px solid ac
+      outline-offset: -1px
+      box-shadow: none
+    }
+
+    > div {
+      background-color: sb
+      box-shadow: 3px 3px 10px rgba(sb, .5)
+    }
+
+    &.danger {
+      #message-box-title {
+        background-color: rgba(rd, .5)
+        color: st
+
+        // close icon too close to ? fix it
+        padding-right: 40px
+
+        &::before { filter: grayscale(1) i }
+      }
+
+      #message-box-close-icon svg {
+        fs: st 0
+        // add margin to icon
+        margin-right: .5em
+
+        &:hover { fs: ac 0 }
+      }
+    }
+
+    // Stylus popup message box close icon state fix
+    #message-box-close-icon {
+      &:hover svg { fs: ac 0 }
+    }
+
+    &-title {
+      background-color: tb
+      rad: c_rad c_rad 0 0
+
+      min-height: 52px
+      padding: .85rem 24px .85rem 55px
+      &::before {
+        left: 1em
+        // grayscale logo
+        filter: grayscale(1)
+      }
+    }
+
+    &-title[hidden] {
+      display: block
+      background-color: tb
+      rad: c_rad c_rad 0 0
+
+      min-height: 52px
+      padding-top: .85rem
+      &::before {
+        filter: grayscale(1)
+      }
+
+      &::after {
+        content: 'Notice'
+        color: st
+      }
+    }
+
+    // Align close icon
+    &-close-icon {
+      top: 1.5em
+      right: 1em
+    }
+
+    // post-import report
+    details:not([data-id="invalid"]) div:hover {
+      background-color: rgba(tb, .3)
+    }
+  }
+
+  // FF ignores color with 'auto'
+  // Added button[data-focused-via-click] entry for non popup entries
+  .firefox .danger #message-box-buttons,
+  .danger #message-box-buttons {
+    > button:not([data-focused-via-click]):first-child:focus,
+    > button[data-focused-via-click]:first-child:focus {
+      background: rd
+      border: 1px solid lighten(rd, 20%)
+      color: st
+
+      outline: 0
+      &:hover {
+        background: lighten(rd, 10%)
+        border: 1px solid lighten(rd, 30%)
+        color: ft
+      }
+    }
+  }
+
+  // Manage CSS
+  #add-style-as-usercss-wrapper:not(:hover) {
+    input:not(:checked) ~ a {
+      &:focus-within svg {fs: ac 0 }
+
+      svg { fill: st }
+    }
+  }
+
+  html {
+    text-rendering: optimizeLegibility i
+    -webkit-font-smoothing: antialiased i
+  }
+
+  .entry {
+    border-top: 1px solid rgba(gy, .1)
+
+    &:nth-child(even) { cp: 0 0 rgba(tb, .3) }
+    &:nth-child(-n + 10)::before { color: tt }
+
+    .menu {
+      background-color: rgba(fb, .4)
+      animation: lights-off .5s cubic-bezier(.03, .67, .08, .94)
+      animation-fill-mode: both
+
+      &-item {
+        &:hover, &:active {
+          background-color: rgba(fb, .1)
+          transition: background-color .25s
+        }
+
+        &.disabled {
+          background-color: t
+          opacity: 0.5
+        }
+      }
+    }
+
+    &.usercss .style-name-link {
+      &::after {
+        content: "userCSS"
+        background-color: darken(gy, 40%)
+        color: st
+
+        vertical-align: text-top
+        text-transform: capitalize
+        text-shadow: 0 1px fb // test shadow
+        rad: c_rad
+      }
+    }
+
+    .style-name {
+      &::before {
+        background: linear-gradient(to right, hsla(fb, .2), hsla(tb, .05) 50%, t)
+      }
+
+      // Legacy UI align fixes
+      .homepage .svg-icon {
+        margin-top: -1px
+        vertical-align: text-top
+      }
+    }
+
+    &.disabled {
+      .style-name, .svg-icon {
+        cp: rgba(tt, .7) 0 0
+        fs: rgba(tt, .7) 0
+      }
+
+      &:hover {
+        .svg-icon { fs: tt 0 }
+
+        a:hover .svg-icon {
+          fs: ac 0
+        }
+      }
+      &:focus-within a .svg-icon {
+        fs: ac 0 i
+      }
+
+      // Legacy UI disabled badge align
+      h2::after { vertical-align: text-top }
+    }
+  }
+
+  /.disabled {
+    h2 {
+      .style-name-link {
+        color: rgba(tt, .7)
+        fill: rgba(tt, .7)
+      }
+      &::after {
+        background: rgba(gy, .2)
+      }
+    }
+
+    a {
+      cp: st 0 0
+      &:hover { cp: ac 0 0 }
+    }
+
+    .applies-to {
+      color: rgba(tt, .7)
+      fill: st
+    }
+  }
+
+  .newUI .update-done .updated svg {
+    /* unprefixed since Chrome 53 */
+    -webkit-filter: drop-shadow(0 5px 0 currentcolor)
+    filter: drop-shadow(0 5px 0 currentcolor)
+  }
+
+  .newUI {
+    .entry {
+      &.enabled .style-name:hover .style-name-link {
+        color: ac
+      }
+
+      &:hover {
+        .svg-icon {
+          fs: st
+
+          &.checked { fs: ac }
+
+          &:hover {
+            fs: ac
+          }
+        }
+
+        .target img {
+          opacity: 1
+          /* unprefixed since Chrome 53 */
+          -webkit-filter: grayscale(0)
+          filter: grayscale(0)
+        }
+
+        // Opinionated checkbox border color on hover
+        input[type='checkbox' i] { border-color: ac }
+      }
+
+      &.odd {
+        cp: 0 0 rgba(tb, .3)
+      }
+
+      .style-name {
+        &:hover::before {
+          background: linear-gradient(to right, hsla(gy, .1), hsla(gy, .09) 50%, t)
+        }
+      }
+
+      .style-info[data-type='age' i] {
+        color: rgba(tt, .7)
+      }
+
+      .svg-icon {
+        fs: tt
+
+        &.checked {
+          fs: tt
+        }
+      }
+    }
+
+    .can-update {
+      &[data-details$="locally edited"] {
+
+        .update svg {
+          fill: desaturate(rd, 20%)
+        }
+
+        &:hover {
+          .update svg {
+            fill: desaturate(rd, 20%)
+            &:hover { fill: rd }
+          }
+        }
+      }
+
+      &:not([data-details$="locally edited"]) .update::after {
+        background-color: darken(rd, 60%)
+        border: 1px solid lighten(rd, 10%)
+        color: st
+      }
+    }
+
+    .disabled.entry .svg-icon {
+        color: rgba(tt, .7)
+        fs: rgba(tt, .7) 0
+    }
+
+    .update-problem {
+      .check-update svg {
+        fill: saturate(rd, 20%)
+      }
+
+      &:hover .check-update svg {
+        fill: desaturate(rd, 20%)
+        &:hover {
+          fill: rd
+        }
+      }
+    }
+
+    .updater-icons > :not(.check-update):after {
+      border: 1px solid lighten(gr, 10%)
+      background-color: darken(gr, 50%)
+
+      rad: c_rad
+      box-shadow: 2px 3px 10px rgba(fb, .25)
+      animation: fadeout 10s
+      animation-fill-mode: both
+    }
+
+    .target {
+      &:hover { background-color: inherit }
+      img {
+        transition: opacity .5s, filter .5s;
+        /* unprefixed since Chrome 53 */
+        -webkit-filter: grayscale(1);
+        filter: grayscale(1);
+        /* workaround for the buggy CSS filter: images in the hidden overflow are shown on Mac */
+        opacity: .25
+      }
+    }
+  }
+
+  .style-info[data-type='version' i] {
+    color: rgba(tt, .8)
+  }
+
+  .can-update[data-details$='locally edited' i] button.update::after {
+      content: '⭐'
+  }
+
+  /* highlight updated/added styles */
+  .highlight {
+    animation: highlight 10s cubic-bezier(0, .82, .47, .98)
+  }
+
+  .highlight-quick {
+    animation: highlight .5s
+  }
+
+  // Keyframes all-together now.
+  @keyframes highlight {
+    from { background-color: rgba(gy, .4) }
+    to { background-color: none }
+  }
+
+  @-webkit-keyframes highlight {
+    from { background-color: rgba(gy, .4) }
+    to { background-color: inherit }
+  }
+
+  @keyframes fadein {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+
+  @keyframes fadein-match-highlighter {
+    from { background-color: t }
+    to   { background-color: rgba(ac, .58); color: ft }
+  }
+
+  @keyframes fadein {
+    from { opacity: 0 }
+    to { opacity: 1 }
+  }
+
+  @keyframes fadeout {
+    from { opacity: 1 }
+    to { opacity: 0 }
+  }
+
+  @keyframes fadein-25pct {
+    from { opacity: 0 }
+    to { opacity: .25 }
+  }
+
+  @keyframes lights-off {
+    from { background-color: t }
+    to { background-color: rgba(fb, .4) }
+  }
+
+  @keyframes lights-on {
+    from { background-color: rgba(fb, .4) }
+    to { background-color: t }
+  }
+
+  #manage\.newUI\.sort {
+    background: fb
+    border: 1px solid rgba(gy, .5)
+    color: tt
+
+    rad: c_rad
+  }
+
+  .help-text mark {
+    background-color: tb
+    border: 1px solid rgba(gy, .3)
+    rad: c_rad
+  }
+
+  #import pre { background: tb }
+
+  /* drag-n-drop on import button */
+  .dropzone:after {
+    background-color: rgba(tb, 0.7)
+    color: ft
+    padding: calc(50vh - 3em) calc(50vw - 5em)
+    content: attr(dragndrop-hint)
+    text-shadow: 1px 1px 10px black
+    animation: fadein 1s cubic-bezier(.03, .67, .08, .94)
+    animation-fill-mode: both
+  }
+
+  .fadeout.dropzone:after {
+    animation: fadeout .25s ease-in-out;
+    animation-fill-mode: both;
+  }
+
+  #backup-buttons {
+    .dropdown {
+
+      &-content {
+        background-color: sb
+        border: 1px solid rgba(gy, .2)
+        box-shadow: 0px 8px 16px 0px rgba(fb, .2)
+        rad: c_rad
+        a {
+          color: st
+          &:hover { background-color: tb }
+        }
+
+        // Deprecated dropbox backup (dropbox-sync)
+        #sync-dropbox-export,
+        #sync-dropbox-import {
+          &:hover { cp: 0 0 t }
+        }
+      }
+
+      &:hover .dropbtn {
+        background-color: tb
+        border-color: ac
+      }
+    }
+  }
+
+  @media (max-width: 850px) {
+    #header {
+      border-bottom: 1px outset rgba(gy, .5)
+    }
+  }
+
+  @media (hover: none) {
+    .expanded-note {
+      color: tt
+    }
+  }
+
+  // Config menu
+  .config {
+    &-body label:not(:first-child) {
+      border-top: 1px dotted rgba(gy, .5)
+    }
+
+    &-reset-icon {
+      &:hover, &:focus-within {
+        .svg-icon { fs: ac 0 }
+      }
+
+      .svg-icon { fs: tt 0 }
+    }
+
+    &-error {
+      background-color: rd
+      color: st
+      text-shadow: 0.5px 0.5px 6px rd
+      animation: fadein .5s
+    }
+  }
+
+  // Colorpicker and friends
+  .color-swatch {
+    border: 1px solid rgba(gy, .5)
+    rad: c_rad
+    &:hover, &:focus-within {
+      border: 1px solid ac
+      outline: 0
+    }
+  }
+
+  .colorpicker {
+    &-popup {
+      box-shadow: 3px 3px 50px rgba(tb, .5) i
+      rad: c_rad
+    }
+
+    &-opacity-bar {
+      background: linear-gradient(to right, t, rgba(tb, 1))
+    }
+
+    &-saturation-container { rad: c_rad c_rad 0 0 }
+    /input[type='text' i] {
+      height: 25px
+      rad: c_rad
+    }
+  }
+
+  [class*='colorpicker-theme-'] {
+    --main-background-color: tb
+    --main-border-color: rgba(gy, .5)
+
+    --label-color: tt
+    --label-color-hover: st
+
+    --input-background-color: fb
+    --input-background-color-hover: sb
+    --input-background-color-focus: sb
+
+    --input-color: st
+    --input-color-focus: ft
+
+    --input-border-color: rgba(gy, .5)
+    --input-border-color-focus: ac
+    --input-border-color-hover: ac
+
+    --invalid-border-color: rgba(rd, .5)
+    --invalid-background-color: rgba(rd, .3)
+    --invalid-color: rd
+  }
+
+  // Popup
+  #stylus-popup {
+    .style-name {
+
+      // add focus-within
+      &:hover, &:focus-within {
+        .checker {
+          cp: 0 rgba(gy, .5) sb
+          &:checked {
+            cp: 0 ac tb
+          }
+        }
+
+        // fill checked icon on hover
+        .checkmate .svg-icon.checked {
+          fs: ac
+        }
+      }
+    }
+    if (show_details) {
+      $version = 'Stylus Wardrobe: v1.0.0'
+
+      #write-style::after {
+        content: $version
+        color: rgba(tt, .5)
+        margin-top: 5px
+        margin-left: auto
+        margin-bottom: -3px
+      }
+    }
+  }
+
+  .not-applied:hover .style-name { color: rd }
+
+  #disableAll {
+    &:hover {
+      border-color: rd
+      background-color: sb
+    }
+    &-label:hover {
+      color: rd
+    }
+  }
+
+  #installed {
+    border-bottom: 1px solid sb
+    &.disabled {
+      border-color: rd
+      + .actions #disableAll:checked {
+        + .svg-icon.checked { fs: rd 0 }
+
+        &:hover {
+          border-color: rgba(oj, .9)
+          background-color: rgba(oj, .9)
+          + .svg-icon.checked { fs: st }
+        }
+      }
+
+      + .actions #disableAll-label {
+         color: rd
+      }
+    }
+  }
+
+  .install {
+    background-color: sb
+    color: st
+    border-radius: c_rad
+    text-shadow: 1px 1px 1px fb
+    box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
+                inset 0 1px 0 0 rgba(gy, .5),
+                inset 1px 0 0 0 rgba(gy, .4)
+    &::before {
+        border-left: 1px solid rgba(tb, .3)
+        box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
+                    inset 0 1px 0 0 rgba(gy, .5),
+                    inset -1px 0 0 0 rgba(gy, .6)
+    }
+
+    &:hover:not(:disabled) {
+      background-color: tb
+      color: ft
+      border: 0
+    }
+  }
+
+  .frame-url::before {
+    content: 'iframe: '
+    color: gy
+  }
+
+  .menu-items-wrapper {
+    background-color: sb
+    border: solid 1px rgba(gy, .5)
+    rad: c_rad
+  }
+
+  // confirm
+  #confirm {
+    background-color: rgba(fb, .4)
+    > div {
+      background-color: sb
+      border: solid 2px rgba(rd, .5)
+      rad: c_rad
+    }
+
+    button[data-cmd="ok"]:not([data-focused-via-click]):focus {
+      background: rd
+      border: 1px solid lighten(rd, 20%)
+      color: st
+      box-shadow: none
+      &:hover {
+        background: lighten(rd, 10%)
+        border: 1px solid lighten(rd, 30%)
+        color: ft
+      }
+    }
+  }
+
+  .match .match::before {
+    border-width: 1px
+    border-style: none none solid solid
+  }
+
+  #write-for-frames {
+    --dash: t 2px, currentcolor 2px, currentcolor 3px, t 3px
+    background: linear-gradient(var(--dash)), linear-gradient(90deg, var(--dash))
+    &.expanded {
+      background: linear-gradient(var(--dash))
+    }
+  }
+
+  .unreachable .blocked-info {
+    border-bottom: 1px solid rgba(gy, .5)
+  }
+
+  .blocked-info {
+    .copy {
+      transition: all .1s
+      border-bottom: 1px dotted rgba(gy, .5)
+      &:hover {
+        color: st
+      }
+      &.copied {
+        background: gy
+        color: st
+      }
+    }
+  }
+
+  .block {
+    border-bottom: 1px dotted rgba(gy, .4)
+  }
+
+  .copy-message {
+    background: gy
+    color: st
+  }
+
+  #hotkey-info {
+    div {
+      background-color: fb
+      border: 0
+      &:last-child {
+        box-shadow: 0 0 90px rgba(0, 0, 0, .25)
+      }
+    }
+
+    &[data-active] {
+      border: 0
+      box-shadow: 0 0 90px rgba(fb, .5)
+    }
+
+    mark {
+      background: tb
+      border-color: rgba(gy, .4)
+      color: st
+
+      rad: c_rad
+      box-shadow: none
+      padding: 2px 6px 2px 6px
+    }
+  }
+
+  // Search
+  #search-replace-dialog[data-type] {
+    background-color: sb
+    box-shadow: 4px 5px 20px -6px rgba(fb, .5)
+    border: 1px solid rgba(gy, .2)
+    color: st
+
+    rad: c_rad
+    > * {
+      background-color: rgba(sb, .1)
+    }
+
+    textarea {
+      background-color: tb
+      border-color: rgba(gy, .4)
+      color: currentcolor
+
+      outline: 0
+      &:focus { box-shadow: inset 0 0 0 1px ac }
+    }
+
+    [data-action='case' i] {
+      color: currentcolor
+      &[data-enabled]::after {
+        border-color: ac
+        border-style: none none solid none
+      }
+    }
+
+    [data-action='clear' i] {
+      background-color: rgba(ac, .5)
+
+      transition: background-color .3s
+      &:hover { clp: 0 ac 0 0 }
+    }
+
+    [data-type='status' i] { background-color: sb }
+
+    svg {
+      fs: st 0
+      &:hover { fs: ft 0 }
+    }
+  }
+}
+@-moz-document regexp('chrome-extension://.*') {
+  // chrome-extension fixes
+  // align msg box title to middle
+  #message-box-title:not(*:root) {
+    padding-top: 1.1rem
+  }
+
+  // tweak specific input types for consistency between FF and C
+  input {
+    &[type='color' i] {
+      padding: 0
+      height: 25px
+    }
+
+    &[type='range' i]{
+      -webkit-appearance: none
+
+      &::-webkit-slider-runnable-track {
+        height: 6px
+        background: tb
+        border: none
+        border-radius: 3px
+      }
+
+      &::-webkit-slider-thumb {
+        background-color: ac
+
+        cursor: pointer
+        margin-top: -5px
+        height: 18px
+        width: 18px
+        rad: 50%
+        transition: background .2s
+        -webkit-appearance: none
+        &:hover {
+          background-color: lighten(ac, 10%)
+        }
+      }
+
+      &:focus, &:hover, &:focus-within {
+        &::-webkit-slider-runnable-track {
+          background-color: rgba(gy, .14)
+        }
+      }
+
+      &:focus {
+        outline: none
+      }
+    }
+  }
+}

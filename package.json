@@ -1,0 +1,39 @@
+{
+  "name": "stylus-wardrobe",
+  "title": "Stylus Wardrobe",
+  "description": "An inspired configurable theme for the magnificent Openstyles Stylus",
+
+  "version": "1.0.0",
+  "author": {
+    "name": "the-j0k3r",
+    "url": "https://github.com/the-j0k3r"
+  },
+  "contributors": [
+    {
+      "name": "The Community Contributors",
+      "url": "https://github.com/style-it-themes/stylus-wardrobe/graphs/contributors"
+    }
+  ],
+  "repository": "style-it-themes/stylus-wardrobe",
+  "homepage": "https://github.com/style-it-themes/stylus-wardrobe",
+  "bugs": {
+    "url": "https://github.com/style-it-themes/stylus-wardrobe/issues/choose"
+  },
+  "license": "© 2021 the-j0k3r",
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "eclint": "^2.8.1",
+    "updates": "^11.4.2",
+    "versions": "^8.4.4"
+  },
+  "scripts": {
+    "authors": "bash tools/authors.sh",
+    "patch": "versions -p -C patch stylus-wardrobe.user.styl",
+    "minor": "versions -p -C minor stylus-wardrobe.user.styl",
+    "major": "versions -p -C major stylus-wardrobe.user.styl",
+    "fix": "eclint fix stylus-wardrobe.user.styl && eclint fix *.md",
+    "update": "updates -cuU && npm install"
+  }
+}
