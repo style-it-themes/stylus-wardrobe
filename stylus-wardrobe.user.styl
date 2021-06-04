@@ -16,6 +16,7 @@
     'Cobalt         '  :             'cobalt'      ,
     'Material       '  :             'material'    ,
     'Material Darker'  :             'material-dkr',
+    'Pastel on Dark '  :             'pastel-on-dk',
     'Twilight       '  :             'twilight'    ,
     'Solarized Dark '  :             'solarized-dk',
     'Ubuntu         '  :             'ubuntu'      ,
@@ -38,10 +39,10 @@
 @var color     gray____c             'Gray         '                #a4a9c1
 
 @var checkbox  adaptive_syntax_color 'Adaptive syntax highlighting' 1
-@var checkbox  stwb_syntax_theme     'Stylus syntax highlighting'   1
+@var checkbox  ehc_highlight_colors  'Editor highlight colors     ' 1
 @var checkbox  upd_problem_tooltips  'Show update problem tooltips' 1
-@var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages'   1
-@var checkbox  show_details          'Show style details'           0
+@var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages  ' 1
+@var checkbox  show_details          'Show style details          ' 0
 
 @var     text  custom_header_width   'Header width    '             280px
 @var     text  font_size             'Editor font size'             12px
@@ -52,16 +53,18 @@
     'Custom         '  :             'c_c_clr'    ,
     'Twilight       '  :             '#8f9d6a'    ,
     'Material       '  :             '#82aaff'    ,
+    'Pastel on Dark '  :             '#a6c6ff'    ,
     'Solarized Dark '  :             '#268bd2'    ,
     'Ubuntu         '  :             '#e95420'    ,
 }
-@var color c_c_clr                       'Custom cursor color' '#04f911'
+@var color c_c_clr                   'Custom cursor color'         '#04f911'
 ==/UserStyle== */
 vendors = official
 version = 'Stylus Wardrobe v1.0.0'
 g       = global
 t       = transparent
 i       = !important
+r       = unquote
 // color helpers
 ac      = AC
 ft      = FT
@@ -154,6 +157,24 @@ gy      = GY
       MG: #ff5370,
       VI: #c792ea,
       GY: #848484,
+    }
+    'pastel-on-dk' : {
+      AC: #a6e22e,
+      FT: #f8f8f2,
+      ST: #d2e6e6,
+      TT: #bed2d2,
+      FB: #2c2827,
+      SB: #34302f,
+      TB: #434443,
+      RD: #de3030,
+      OJ: #de8e30,
+      YL: #decd30,
+      GR: #66a968,
+      CY: #30cfde,
+      BL: #a6c6ff,
+      MG: #de30a7,
+      VI: #aeb2f8,
+      GY: #8f938f,
     }
     'solarized-dk' : {
       AC: #268bd2,
@@ -281,12 +302,6 @@ bsh() { box-shadow: arguments }
 
   $fonts = 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace
 
-  /* Cursor width and color setting implementation */
-  .CodeMirror div.CodeMirror-cursor {
-    border-left-width: cursor_width
-    border-color: cursor_color
-  }
-
   /.CodeMirror {
     font-family: $fonts
     font-size: var(--font-size)
@@ -300,94 +315,129 @@ bsh() { box-shadow: arguments }
       box-shadow: 2px 3px 5px rgba(fb, .2)
     }
 
-    &-activeline .applies-to::before {
-      clp: 0 rgba(gy, .2) 0 0
-    }
-
-    &-focused {
-      outline: 0
-      border-color: bl
-      box-shadow: 0 0 3px 0 bl
+    /* Cursor width and color setting implementation */
+    div.CodeMirror-cursor,
+    div.CodeMirror-secondarycursor,
+    &-overwrite .CodeMirror-cursor {
+      border-left-width: cursor_width
+      border-color: cursor_color
     }
 
     &-hint {
       color: tt
 
-      &:hover { cp: 0 0 ac }
+      &:hover { clp: 0 ac 0 0 }
       &-active {
         background-color: ac i
         color: ft
       }
     }
 
-    &-lint-tooltip {
-      background-color: sb
-      color: st
-    }
+    if (ehc_highlight_colors) {
+      &-activeline .applies-to::before {
+        clp: 0 rgba(gy, .2) 0 0
+      }
 
-    &-selected {
-      background-color: rgba(gy, .7); color: ft
-    }
+      &-focused {
+        outline: 0
+        border-color: bl
+        box-shadow: 0 0 3px 0 bl
+      }
 
-    &-search-match {
-      background: gr
-      border-top: 1px solid lighten(gr, 30%)
-      border-bottom: 1px solid lighten(gr, 30%)
-    }
-  }
+      &-gutter-wrapper {
+        ::selection, ::-moz-selection {
+          background-color: gy
+          color: st
+        }
+      }
 
-  // e.g. searchboxes
-  ::selection {
-    background-color: rgba(gy, .7); color: ft
+      &-linewidget .applies-to {
+        clp: 0 tb rgba(gy, .5) 0
+      }
+
+      &-matchingtag { background: rgba(oj, .3) }
+
+      &-lint-tooltip {
+        background-color: sb
+        color: st
+      }
+
+      &-ruler { border-left: 1px solid rgba(gy, .6) i }
+
+      &-search-match {
+        background: gr
+        border-top: 1px solid lighten(gr, 30%)
+        border-bottom: 1px solid lighten(gr, 30%)
+      }
+    }
   }
 
   .gutter-bookmark {
     background: linear-gradient(0deg, hsla(ac, .85) 2px, hsla(ac, .3) 2px)
   }
 
-  [class*='cm-s'] {
-    .CodeMirror {
-      &-matchingbracket {
-        color: lighten(gr, 20%) i
-        font-weight: 900
-        outline: 0
-        border-bottom: 2px solid lighten(gr, 20%)
-      }
+  if (ehc_highlight_colors) {
+    // e.g. searchboxes
+    ::selection {
+      background-color: rgba(gy, .7)
+      color: ft
+    }
 
-      &-gutter-wrapper ::selection {
-        background-color: rgba(gy, .7); color: fb
-      }
-
-      &-line {
-        &::selection {
-          background-color: rgba(gy, .7); color: fb
+    [class*='cm-s'] {
+      .CodeMirror {
+        &-gutter-wrapper {
+          ::selection {
+            background-color: rgba(gy, .7)
+            color: st
+          }
+          ::-moz-selection {
+            background-color: rgba(gy, .7)
+            color: st
+          }
         }
-        > span {
+
+        &-line {
           &::selection {
-            background-color: rgba(gy, .7); color: fb
+            background-color: rgba(gy, .7)
+            color: fb
           }
-          > span::selection {
-            background-color: rgba(gy, .7); color: fb
+
+          > span {
+            &::selection, > span::selection {
+              background-color: rgba(gy, .7)
+              color: fb
+            }
+          }
+          &::-moz-selection {
+            background-color: rgba(gy, .7)
+            color: fb
+          }
+
+          > span {
+            &::-moz-selection, > span::-moz-selection {
+              background-color: rgba(gy, .7)
+              color: fb
+            }
           }
         }
-      }
+        &-linenumber,
+        &-guttermarker-subtle {
+          &:hover { color: inherit }
+        }
 
-      &-nonmatchingbracket {
-        color: lighten(yl, 20%) i
-        font-weight: 900
-        outline: 0
-        border-bottom: 2px solid lighten(yl, 20%)
-      }
+        &-matchingbracket {
+          color: lighten(gr, 20%) i
+          font-weight: 900
+          outline: 0
+          border-bottom: 2px solid lighten(gr, 20%)
+        }
 
-      // Tweak foldmarker
-      &-foldmarker {
-        color: ft
-        text-shadow: none
-        font-size: 18px
-      }
-
-      &-linenumber, &-guttermarker-subtle {
-        &:hover { color: st }
+        &-nonmatchingbracket {
+          color: lighten(yl, 20%) i
+          font-weight: 900
+          outline: 0
+          border-bottom: 2px solid lighten(yl, 20%)
+        }
       }
     }
   }
@@ -448,9 +498,7 @@ bsh() { box-shadow: arguments }
     }
   }
 
-  .firefox body {
-    cp: st 0 fb
-  }
+  .firefox body { cp: st 0 fb }
 
   body {
     cp: st 0 fb
@@ -506,6 +554,69 @@ bsh() { box-shadow: arguments }
     }
   }
 
+  .search-result {
+    background-color: sb
+    box-shadow: 1px 1px 10px rgb(ft / 75%)
+    rad: c_rad
+    border: 1px solid rgba(gy, .3)
+
+    &:hover {
+      background-color: tb
+      border-color: rgba(gy, .5)
+      color: inherit
+        .search-result-title { color: st }
+        .search-result-meta { background-color: hsla(ac, .75) }
+    }
+
+    &-actions button { box-shadow: 2px 2px 20px gy }
+
+    &[data-ed] .search-result-status {
+      background-color: hsla(ac, .75)
+      color: st
+      transition: background-color .5s
+    }
+
+    &-error { background-color: rgba(rd, .4) }
+
+    &-meta {
+      background-color: hsla(fb, .75)
+      padding-top: 2px
+      [data-type="rating"][data-class="good"] dd,
+      [data-type="rating"][data-class="okay"] dd { color: lighten(gr, 20%) }
+      [data-type="rating"][data-class="bad"] dd { color: lighten(rd, 20%) }
+    }
+
+    &-screenshot:hover ~ .search-result-status {
+      background-color: ac
+    }
+
+    &-title { color: st }
+
+    &:not([data-empty])::before {
+      background-image: linear-gradient(t, rgba(sb, .3) 200px)
+    }
+  }
+
+  #search-results {
+    .search-results-nav button:not(:disabled):hover {
+      text-shadow: 0 1px 4px rgba(st, .5)
+    }
+
+    .lds-spinner {
+      transform: scale(.5)
+      filter: drop-shadow(1px 1px 3px fb )
+    }
+
+    .search-result-empty .lds-spinner {
+      filter: opacity(.2)
+    }
+  }
+
+  .not-matching-explainer {
+    background-color: hsla(oj, .2)
+    border-bottom: 2px solid hsla(oj, .5)
+  }
+
   #stylus-embedded-options {
     animation: fadein .25s ease-in-out
     background-color: rgba(sb, .45)
@@ -528,6 +639,7 @@ bsh() { box-shadow: arguments }
     #actions {
       background-color: rgba(TB, .5)
       border-top: 1px solid rgba(GY, .2)
+      min-height: min-content
     }
   }
 
@@ -569,10 +681,10 @@ bsh() { box-shadow: arguments }
   }
 
   .collapsible-resizer .svg-icon {
-    fill: #333;
-    transition: fill .5s;
-    height: 16px;
-    width: 16px;
+    fill: sb
+    transition: fill .5s
+    height: 16px
+    width: 16px
   }
 
   /button {
@@ -700,7 +812,7 @@ bsh() { box-shadow: arguments }
       background: tb //hsl(0, 0%, 100%);
       border: 1px solid rgba(gy, .5)
 
-      border-radius: 50%
+      border-radius: 50% i
       cursor: pointer
       height: 14px
       width: 14px
@@ -881,7 +993,7 @@ bsh() { box-shadow: arguments }
       fill: ac
     }
 
-    &.info, &.settings {
+    &.info {
       fill: tt
 
       &:hover, &:focus-within {
@@ -909,14 +1021,18 @@ bsh() { box-shadow: arguments }
 
   // Style usercss popup select
   .select-resizer select {
+    background-color: tb
+    border: 1px solid rgba(gy, .5)
+    color: st
+    &:hover, &:focus-within {
       background-color: tb
-      border: 1px solid rgba(gy, .5)
-      color: st
-      &:hover, &:focus-within {
-        background-color: tb
-        border-color: ac
-        color: ac i
-      }
+      border-color: ac
+      color: ac i
+    }
+    &#search-order {
+      line-height: 22px
+      height: 25px
+    }
   }
 
   /select {
@@ -955,7 +1071,7 @@ bsh() { box-shadow: arguments }
 
     option {
       appearance: none
-      cp: st 0 fb
+      cp: st 0 sb
       rad: c_rad
       &:disabled {
         /* restore disabled state dimming */
@@ -1007,11 +1123,13 @@ bsh() { box-shadow: arguments }
     }
 
     // add hover fill to select-arrow
-    .select-resizer:hover,
-    .select-wrapper:hover,
-    .sorter-selection:hover {
-      .select-arrow {
-        fill: ac
+    .select-resizer,
+    .select-wrapper,
+    .sorter-selection {
+      &:hover, &:focus-within {
+        .svg-icon.select-arrow {
+          fill: ac i
+        }
       }
     }
   }
@@ -1185,6 +1303,10 @@ bsh() { box-shadow: arguments }
     .dismiss {
       top: .7em
       right: .5em
+    }
+
+    .active-linter-rule {
+      background-color: rgba(gy, .2)
     }
 
     &.big {
@@ -1404,12 +1526,13 @@ bsh() { box-shadow: arguments }
     &.usercss .style-name-link {
       &::after {
         content: "userCSS"
-        background-color: darken(gy, 40%)
+        background-color: darken(ac, 40%)
         color: st
 
-        vertical-align: text-top
         text-transform: capitalize
         text-shadow: 0 1px fb // test shadow
+        padding: 2px 5px 3px
+        vertical-align: middle
         rad: c_rad
       }
     }
@@ -1417,12 +1540,6 @@ bsh() { box-shadow: arguments }
     .style-name {
       &::before {
         background: linear-gradient(to right, hsla(fb, .2), hsla(tb, .05) 50%, t)
-      }
-
-      // Legacy UI align fixes
-      .homepage .svg-icon {
-        margin-top: -1px
-        vertical-align: text-top
       }
     }
 
@@ -1442,9 +1559,6 @@ bsh() { box-shadow: arguments }
       &:focus-within a .svg-icon {
         fs: ac 0 i
       }
-
-      // Legacy UI disabled badge align
-      h2::after { vertical-align: text-top }
     }
   }
 
@@ -1461,7 +1575,7 @@ bsh() { box-shadow: arguments }
 
     a {
       cp: st 0 0
-      &:hover { cp: ac 0 0 }
+      &:hover { cp: rgba(tt, .7) 0 0 }
     }
 
     .applies-to {
@@ -1494,10 +1608,9 @@ bsh() { box-shadow: arguments }
         }
 
         .target img {
+          filter: none
           opacity: 1
-          /* unprefixed since Chrome 53 */
-          -webkit-filter: grayscale(0)
-          filter: grayscale(0)
+          &[src*="favicons?domain=www.github"] { filter: invert(.95) }
         }
 
         // Opinionated checkbox border color on hover
@@ -1550,8 +1663,8 @@ bsh() { box-shadow: arguments }
     }
 
     .disabled.entry .svg-icon {
-        color: rgba(tt, .7)
-        fs: rgba(tt, .7) 0
+      color: rgba(tt, .7)
+      fs: rgba(tt, .7) 0
     }
 
     .update-problem {
@@ -1579,23 +1692,69 @@ bsh() { box-shadow: arguments }
 
     .target {
       &:hover { background-color: inherit }
+
       img {
-        transition: opacity .5s, filter .5s;
-        /* unprefixed since Chrome 53 */
-        -webkit-filter: grayscale(1);
-        filter: grayscale(1);
-        /* workaround for the buggy CSS filter: images in the hidden overflow are shown on Mac */
-        opacity: .25
+        opacity: .5
+        &[src*="favicons?domain=www.github"] {
+          filter: invert(.95)
+        }
+      }
+    }
+
+    .favicons-grayed .target {
+      img {
+        filter: grayscale(1)
+        opacity: .5
+        mix-blend-mode: exclusion
+        &[src*="favicons?domain=www.github"] {
+          filter: invert(.95)
+        }
       }
     }
   }
 
-  .style-info[data-type='version' i] {
-    color: rgba(tt, .8)
+  .oldUI {
+    .disabled {
+      h2 {
+        .style-name-link {
+          color: rgba(tt, .7)
+          fill: rgba(tt, .7)
+          vertical-align: middle
+        }
+        &::after {
+          background: darken(gy, 40%)
+          color: st
+          padding: 2px 5px 3px
+          rad: c_rad
+          vertical-align: baseline
+        }
+      }
+    }
+
+    .entry {
+      &.usercss .style-name-link {
+        &::after {
+          content: "userCSS"
+          background-color: darken(ac, 40%)
+          color: st
+
+          text-transform: capitalize
+          text-shadow: 0 1px fb // test shadow
+          rad: c_rad
+        }
+        .style-info[data-type='version' i] {
+          vertical-align: middle
+        }
+      }
+    }
   }
 
   .can-update[data-details$='locally edited' i] button.update::after {
       content: '⭐'
+  }
+
+  .style-info[data-type='version' i] {
+      color: rgba(tt, .8)
   }
 
   /* highlight updated/added styles */
@@ -1816,7 +1975,7 @@ bsh() { box-shadow: arguments }
       }
     }
     if (show_details) {
-      $version = 'Stylus Wardrobe: v1.0.0'
+      $version = 'Stylus Wardrobe: v0.0.0'
 
       #write-style::after {
         content: $version
@@ -1824,6 +1983,14 @@ bsh() { box-shadow: arguments }
         margin-top: 5px
         margin-left: auto
         margin-bottom: -3px
+      }
+    }
+
+    // style select arrow on state + tweak top
+    .select-resizer {
+      .select-arrow { top: 6px } // 4px
+      &:hover, &:focus-within {
+        .select-arrow { fs: ac }
       }
     }
   }
@@ -1862,23 +2029,76 @@ bsh() { box-shadow: arguments }
 
   .install {
     background-color: sb
+    background-image: none
     color: st
     border-radius: c_rad
+    border: 0 i
     text-shadow: 1px 1px 1px fb
     box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
                 inset 0 1px 0 0 rgba(gy, .5),
                 inset 1px 0 0 0 rgba(gy, .4)
     &::before {
-        border-left: 1px solid rgba(tb, .3)
-        box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
-                    inset 0 1px 0 0 rgba(gy, .5),
-                    inset -1px 0 0 0 rgba(gy, .6)
+      background-image: none
+      background-color: hsla(cy, 35%)
+      border-left: 1px solid rgba(tb, 1)
+      box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
+                  inset 0 1px 0 0 rgba(gy, .5),
+                  inset -1px 0 0 0 rgba(gy, .4)
+      rad: 0 c_rad c_rad 0
     }
+
+    &::after { rad: 0 c_rad c_rad 0 }
+
+    &:active, &:focus {
+      background-color: tb
+      background-image: none
+
+      &:hover {
+        background-color: tb
+        background-image: none
+      }
+      &::before {
+        background-image: none
+        background-color: hsla(cy, 35%)
+      }
+    }
+
+    &.update {
+      &::before, &:hover::before {
+        background-color: rgba(gy, .5)
+      }
+      &:active {
+        background-color: tb
+        &::before {
+          background-color: tb
+        }
+        &:hover::before {
+          background-color: gr
+        }
+      }
+    }
+
+    &.reinstall {
+      &::before, &:hover::before {
+        background-color: rgba(gy, .5)
+      }
+      &:active {
+        background-color: tb
+        &::before {
+          background-color: tb
+        }
+        &:hover::before {
+          background-color: tb
+        }
+      }
+    }
+
+    &:hover::before { background-color: hsla(cy, 50%) }
 
     &:hover:not(:disabled) {
       background-color: tb
       color: ft
-      border: 0
+      border: 0 i
     }
   }
 
@@ -1923,6 +2143,11 @@ bsh() { box-shadow: arguments }
   #write-for-frames {
     --dash: t 2px, currentcolor 2px, currentcolor 3px, t 3px
     background: linear-gradient(var(--dash)), linear-gradient(90deg, var(--dash))
+
+    &::after {
+      border: 1px solid currentcolor
+    }
+
     &.expanded {
       background: linear-gradient(var(--dash))
     }
@@ -2025,7 +2250,7 @@ bsh() { box-shadow: arguments }
   }
 }
 @-moz-document regexp('chrome-extension://.*') {
-  // chrome-extension fixes
+  // chrome-extension overrides
   // align msg box title to middle
   #message-box-title:not(*:root) {
     padding-top: 1.1rem
@@ -2072,6 +2297,144 @@ bsh() { box-shadow: arguments }
       &:focus {
         outline: none
       }
+    }
+  }
+}
+@-moz-document regexp('moz-extension://.*'), regexp('chrome-extension://.*') {
+  if (adaptive_syntax_color) {
+    .CodeMirror-sizer {
+      border-right: 50px solid t
+    }
+
+    .CodeMirror pre {
+      &.CodeMirror-line, &.CodeMirror-line-like {
+        /* Reset some styles that the rest of the page might have set */
+        background: t
+        -webkit-tap-highlight-color: t
+        -webkit-font-variant-ligatures: contextual
+        font-variant-ligatures: contextual
+      }
+    }
+
+    /* Shown when moving in bi-directional text */
+    .cm-fat-cursor {
+      .CodeMirror-cursor {
+        background: cursor_color
+      }
+    }
+
+    .cm-fat-cursor-mark {
+      background-color: rgba(cursor_color, .5)
+      -webkit-animation: blink 1.06s steps(1) infinite
+      -moz-animation: blink 1.06s steps(1) infinite
+      animation: blink 1.06s steps(1) infinite
+    }
+
+    .cm-animate-fat-cursor {
+      -webkit-animation: blink 1.06s steps(1) infinite
+      -moz-animation: blink 1.06s steps(1) infinite
+      animation: blink 1.06s steps(1) infinite
+      background-color: cursor_color
+    }
+
+    @-moz-keyframes blink {
+      0% {}
+      50% { background-color: t }
+      100% {}
+    }
+
+    @-webkit-keyframes blink {
+      0% {}
+      50% { background-color: t }
+      100% {}
+    }
+
+    @keyframes blink {
+      0% {}
+      50% { background-color: t }
+      100% {}
+    }
+
+    /* DEFAULT THEME */
+
+    .cm-negative { color: rd }
+
+    .cm-positive { color: lighten(gr, 15%) }
+
+    .cm-s-default {
+      &.CodeMirror {
+        background: fb
+        color: ft
+      }
+      .CodeMirror {
+        color: st
+        &-activeline-background { background: tb }
+        // Tweak foldmarker
+        &-foldmarker {
+          color: ft i
+          text-shadow: none i
+          font-size: 18px i
+        }
+        &-gutters {
+          background-color: tb
+          border-right: 1px inset rgba(gy, .5)
+        }
+        &-guttermarker { color: st }
+
+        &-scrollbar-filler, &-gutter-filler { background-color: t i }
+
+        &-focused .CodeMirror-selected { background: rgba(gy, .3) }
+
+        &-selected { background-color: rgba(gy, .3); color: ft }
+        &-linenumber {
+            color: tt
+            &:hover { color: st }
+        }
+      }
+
+      .cm-header { color: bl }
+
+      .cm-quote { color: gr }
+
+      .cm-keyword { color: mg }
+
+      .cm-atom { color: yl }
+
+      .cm-number { color: gr }
+
+      .cm-def { color: bl }
+
+      .cm-variable, .cm-punctuation, .cm-property, .cm-operator {}
+
+      .cm-variable-2 { color: gr }
+
+      .cm-variable-3, .cm-type { color: yl }
+
+      .cm-comment { color: gy }
+
+      .cm-string { color: rd }
+
+      .cm-string-2 { color: oj }
+
+      .cm-meta, .cm-qualifier { color: bl }
+
+      .cm-builtin { color: gr }
+
+      .cm-bracket { color: darken(oj, 10%) }
+
+      .cm-tag { color: lighten(gr, 10%) }
+
+      .cm-attribute, .cm-link { color: lighten(bl, 10%) }
+
+      .cm-hr { color: gy }
+
+      .cm-error { color: rd }
+    }
+
+    .cm-invalidchar { color: rd }
+
+    .CodeMirror-composing {
+      border-bottom: 2px solid
     }
   }
 }
