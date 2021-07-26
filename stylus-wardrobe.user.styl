@@ -43,6 +43,8 @@
 @var checkbox  upd_problem_tooltips  'Show update problem tooltips' 1
 @var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages  ' 1
 @var checkbox  show_details          'Show style details          ' 0
+@var checkbox  show_usw              'Show UserStyles World       ' 1
+@var checkbox  show_usw_icon         'Show UserStyles World Icon  ' 1
 
 @var     text  custom_header_width   'Header width    '             280px
 @var     text  font_size             'Editor font size'             12px
@@ -477,6 +479,19 @@ bsh() { box-shadow: arguments }
 
     #message-box.pre #message-box-contents {
         white-space: pre-wrap
+    }
+  }
+
+  if !(show_usw) {
+    #link-usw, #integration.ignore-pref-if-compact,
+    #publish-style {
+      display: none
+    }
+  }
+
+  if !(show_usw_icon) {
+    #link-usw img {
+      display: none
     }
   }
 
@@ -2306,7 +2321,7 @@ bsh() { box-shadow: arguments }
   }
 }
 @-moz-document regexp('moz-extension://.*'), regexp('chrome-extension://.*') {
-  if (adaptive_syntax_color) {
+  if (adaptive_syntax_color == 1) {
     .CodeMirror-sizer {
       border-right: 50px solid t
     }
