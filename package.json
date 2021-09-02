@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/style-it-themes/stylus-wardrobe/issues/choose"
   },
-  "license": "© 2021 the-j0k3r",
+  "license": "© 2021 the-j0k3r - MIT",
   "engines": {
     "node": ">=12"
   },
