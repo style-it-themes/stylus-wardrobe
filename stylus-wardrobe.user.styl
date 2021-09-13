@@ -46,15 +46,14 @@
 @var checkbox  show_usw              'Show USW integration        ' 1
 @var checkbox  show_notice_header    'Show notice header          ' 1
 
-
-@var   number  cursor_width          'Cursor width'                 [1, 1, 7, 1]
-@var   select  cursor_color          'Cursor color' {
 @var     text  notice_header_txt     'Notice header text          ' Notice
 @var     text  style_type_usercss    'Type label userCSS          ' userCSS
 
 @var   number  custom_header_width   'Header width    '             [280, 280, 300, 1, 'px']
 @var   number  font_size             'Editor font size'             [12, 12, 20, 1, 'px']
 @var   number  c_rad                 'Controls radius '             [3, 3, 12, 1, 'px']
+@var   number  caret_width           'Caret width     '             [1, 1, 8, 1, 'px']
+@var   select  caret_color           'Caret color ' {
     'Custom         '  :             'c_c_clr'    ,
     'Twilight       '  :             '#8f9d6a'    ,
     'Material       '  :             '#82aaff'    ,
@@ -62,7 +61,7 @@
     'Solarized Dark '  :             '#268bd2'    ,
     'Ubuntu         '  :             '#e95420'    ,
 }
-@var color c_c_clr                   'Custom cursor color'         '#04f911'
+@var color c_c_clr                   'Custom caret color'         '#04f911'
 ==/UserStyle== */
 vendors  = official
 $licence = 'MIT'
@@ -334,8 +333,8 @@ bsh() { box-shadow: arguments }
     div.CodeMirror-cursor,
     div.CodeMirror-secondarycursor,
     &-overwrite .CodeMirror-cursor {
-      border-left-width: cursor_width
-      border-color: cursor_color
+      border-left-width: caret_width i
+      border-color: caret_color i
     }
 
     &-scrollbar-filler, &-gutter-filler { background-color: inherit }
@@ -987,10 +986,10 @@ bsh() { box-shadow: arguments }
   }
 
   #footer a {
-    color: #333
+    color: #f3f
     transition: color 0.5s
     &:hover {
-      color: #333
+      color: #f3f
     }
   }
 
@@ -2001,10 +2000,8 @@ bsh() { box-shadow: arguments }
       }
     }
     if (show_details) {
-      $version = 'Stylus Wardrobe: v0.0.0'
-
       #write-style::after {
-        content: $version
+        content: '' + version
         color: rgba(tt, .5)
         margin-top: 5px
         margin-left: auto
@@ -2350,12 +2347,12 @@ bsh() { box-shadow: arguments }
     /* Shown when moving in bi-directional text */
     .cm-fat-cursor {
       .CodeMirror-cursor {
-        background: cursor_color
+        background: caret_color
       }
     }
 
     .cm-fat-cursor-mark {
-      background-color: rgba(cursor_color, .5)
+      background-color: rgba(caret_color, .8)
       -webkit-animation: blink 1.06s steps(1) infinite
       -moz-animation: blink 1.06s steps(1) infinite
       animation: blink 1.06s steps(1) infinite
@@ -2365,7 +2362,7 @@ bsh() { box-shadow: arguments }
       -webkit-animation: blink 1.06s steps(1) infinite
       -moz-animation: blink 1.06s steps(1) infinite
       animation: blink 1.06s steps(1) infinite
-      background-color: cursor_color
+      background-color: caret_color
     }
 
     @-moz-keyframes blink {
