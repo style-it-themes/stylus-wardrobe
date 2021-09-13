@@ -60,29 +60,31 @@
 }
 @var color c_c_clr                   'Custom cursor color'         '#04f911'
 ==/UserStyle== */
-vendors = official
-version = 'Stylus Wardrobe v1.2.1'
-g       = global
-t       = transparent
-i       = !important
-r       = unquote
+vendors  = official
+$licence = 'MIT'
+$url     = 'https://github.com/style-it-themes/stylus-wardrobe'
+version  = 'Stylus Wardrobe v1.2.1'
+g        = global
+t        = transparent
+i        = !important
+r        = unquote
 // color helpers
-ac      = AC
-ft      = FT
-st      = ST
-tt      = TT
-fb      = FB
-sb      = SB
-tb      = TB
-rd      = RD
-oj      = OJ
-yl      = YL
-gr      = GR
-cy      = CY
-bl      = BL
-mg      = MG
-vi      = VI
-gy      = GY
+ac       = AC
+ft       = FT
+st       = ST
+tt       = TT
+fb       = FB
+sb       = SB
+tb       = TB
+rd       = RD
+oj       = OJ
+yl       = YL
+gr       = GR
+cy       = CY
+bl       = BL
+mg       = MG
+vi       = VI
+gy       = GY
 
 /{
   // Generator -> Preset themes.
@@ -295,8 +297,10 @@ bsh() { box-shadow: arguments }
   // moz-extension - chrome-extension
   :root {
     --style-details : unquote(version)
-    --cursor-color  : cursor_color
-    --cursor-width  : cursor_width
+    --license       : unquote($licence)
+    --homepage      : unquote($url)
+    --caret-color   : caret_color
+    --caret-width   : caret_width
     --font-size     : font_size
     --header-width  : custom_header_width
   }
