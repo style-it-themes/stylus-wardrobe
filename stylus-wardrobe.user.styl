@@ -315,6 +315,12 @@ bsh() { box-shadow: arguments }
       -moz-box-shadow: 2px 3px 5px rgba(fb, .2)
       box-shadow: 2px 3px 5px rgba(fb, .2)
     }
+    // Tweak foldmarker
+    &-foldmarker {
+        color: ft
+        text-shadow: none
+        font-size: 18px
+    }
 
     /* Cursor width and color setting implementation */
     div.CodeMirror-cursor,
@@ -2386,12 +2392,6 @@ bsh() { box-shadow: arguments }
       .CodeMirror {
         color: st
         &-activeline-background { background: tb }
-        // Tweak foldmarker
-        &-foldmarker {
-          color: ft i
-          text-shadow: none i
-          font-size: 18px i
-        }
         &-gutters {
           background-color: tb
           border-right: 1px inset rgba(gy, .5)
