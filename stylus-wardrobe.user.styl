@@ -46,7 +46,6 @@
 @var checkbox  show_usw              'Show USW integration        ' 1
 @var checkbox  show_notice_header    'Show notice header          ' 1
 
-@var     text  c_rad                 'Controls radius '             3px
 
 @var   number  cursor_width          'Cursor width'                 [1, 1, 7, 1]
 @var   select  cursor_color          'Cursor color' {
@@ -55,6 +54,7 @@
 
 @var   number  custom_header_width   'Header width    '             [280, 280, 300, 1, 'px']
 @var   number  font_size             'Editor font size'             [12, 12, 20, 1, 'px']
+@var   number  c_rad                 'Controls radius '             [3, 3, 12, 1, 'px']
     'Custom         '  :             'c_c_clr'    ,
     'Twilight       '  :             '#8f9d6a'    ,
     'Material       '  :             '#82aaff'    ,
@@ -746,7 +746,7 @@ bsh() { box-shadow: arguments }
   /input {
     &[type]:not(.slider) {
       transition: all .5s
-      rad: c_rad
+      rad: 3px
       outline: 0
       -webkit-appearance: none
       -moz-appearance: none
@@ -2258,6 +2258,7 @@ bsh() { box-shadow: arguments }
       color: currentcolor
 
       outline: 0
+      rad: c_rad
       &:focus { box-shadow: inset 0 0 0 1px ac }
     }
 
@@ -2276,7 +2277,7 @@ bsh() { box-shadow: arguments }
       &:hover { clp: 0 ac 0 0 }
     }
 
-    [data-type='status' i] { background-color: sb }
+    /[data-type='status' i] { background-color: sb }
 
     svg {
       fs: st 0
