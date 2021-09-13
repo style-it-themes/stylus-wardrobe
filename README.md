@@ -55,6 +55,7 @@ if you wish to view complete list click below.
  * Cobalt
  * Material
  * Material Darker
+ * Pastel on Dark 
  * Solarized Dark
  * Twilight
  * Ubuntu
@@ -110,7 +111,7 @@ You will need to be familiar with browser development tools.
 
 ## Engaging with the Project
 
-There are many ways to engage with the project, all contributions types are most welcome and encouraged, e.g. typo(s), documentation, prettification of any included portions, or even to provide feedback or ask a question, or help out with support/questions from other users, to name just a few ways you can engage with this project.
+There are many ways to engage with the project, all contributions types are most welcome and encouraged, e.g. ask for your fav color schemes, fix some typo(s), add documentation, prettify any included portions, provide feedback or ask a question, even help out with support/questions from other users, to name just a few ways you can engage with this project.
 
 Open a pull request or [ticket](https://github.com/style-it-themes/stylus-wardrobe/issues/new/choose) to start the ball rolling.
 
