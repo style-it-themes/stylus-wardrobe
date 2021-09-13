@@ -52,6 +52,8 @@
 @var   number  cursor_width          'Cursor width'                 [1, 1, 7, 1]
 @var   select  cursor_color          'Cursor color' {
 @var     text  notice_header_txt     'Notice header text          ' Notice
+@var     text  style_type_usercss    'Type label userCSS          ' userCSS
+
 @var   number  custom_header_width   'Header width    '             [280, 280, 300, 1, 'px']
     'Custom         '  :             'c_c_clr'    ,
     'Twilight       '  :             '#8f9d6a'    ,
@@ -1554,7 +1556,7 @@ bsh() { box-shadow: arguments }
 
     &.usercss .style-name-link {
       &::after {
-        content: "userCSS"
+        content: '' + style_type_usercss
         background-color: darken(ac, 40%)
         color: st
 
