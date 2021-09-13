@@ -44,6 +44,7 @@
 @var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages  ' 1
 @var checkbox  show_details          'Show style details          ' 0
 @var checkbox  show_usw              'Show USW integration        ' 1
+@var checkbox  show_notice_header    'Show notice header          ' 1
 
 @var     text  custom_header_width   'Header width    '             280px
 @var     text  font_size             'Editor font size'             12px
@@ -51,6 +52,7 @@
 
 @var   number  cursor_width          'Cursor width'                 [1, 1, 7, 1]
 @var   select  cursor_color          'Cursor color' {
+@var     text  notice_header_txt     'Notice header text          ' Notice
     'Custom         '  :             'c_c_clr'    ,
     'Twilight       '  :             '#8f9d6a'    ,
     'Material       '  :             '#82aaff'    ,
@@ -1461,20 +1463,23 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &-title[hidden] {
-      display: block
-      background-color: tb
-      rad: c_rad c_rad 0 0
+    if (show_notice_header) {
+      // add header to notice boxes
+      &-title[hidden] {
+        display: block
+        background-color: tb
+        rad: c_rad c_rad 0 0
 
-      min-height: 52px
-      padding-top: .85rem
-      &::before {
-        filter: grayscale(1)
-      }
+        min-height: 52px
+        padding-top: .85rem
+        &::before {
+          filter: grayscale(1)
+        }
 
-      &::after {
-        content: 'Notice'
-        color: st
+        &::after {
+          content: '' + notice_header_txt
+          color: st
+        }
       }
     }
 
