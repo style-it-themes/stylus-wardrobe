@@ -12,14 +12,14 @@
 @preprocessor stylus
 
 @var   select  presets               'Preset theme select' {
-    'Custom colors* '  :             'custom-style',
-    'Cobalt         '  :             'cobalt'      ,
-    'Material       '  :             'material'    ,
-    'Material Darker'  :             'material-dkr',
-    'Pastel on Dark '  :             'pastel-on-dk',
-    'Twilight       '  :             'twilight'    ,
-    'Solarized Dark '  :             'solarized-dk',
-    'Ubuntu         '  :             'ubuntu'      ,
+      'Custom colors* '  :           'custom-style',
+      'Cobalt         '  :           'cobalt'      ,
+      'Material       '  :           'material'    ,
+      'Material Darker'  :           'material-dkr',
+      'Pastel on Dark '  :           'pastel-on-dk',
+      'Twilight       '  :           'twilight'    ,
+      'Solarized Dark '  :           'solarized-dk',
+      'Ubuntu         '  :           'ubuntu'      ,
 }
 @var color     accent__c             'Accent color '                #4f74e3
 @var color     white___1             '1st txt      '                #f2f4ff
@@ -54,12 +54,12 @@
 @var   number  c_rad                 'Controls radius '             [3, 3, 12, 1, 'px']
 @var   number  caret_width           'Caret width     '             [1, 1, 8, 1, 'px']
 @var   select  caret_color           'Caret color ' {
-    'Custom         '  :             'c_c_clr'    ,
-    'Twilight       '  :             '#8f9d6a'    ,
-    'Material       '  :             '#82aaff'    ,
-    'Pastel on Dark '  :             '#a6c6ff'    ,
-    'Solarized Dark '  :             '#268bd2'    ,
-    'Ubuntu         '  :             '#e95420'    ,
+      'Custom         '  :           'c_c_clr'    ,
+      'Twilight       '  :           '#8f9d6a'    ,
+      'Material       '  :           '#82aaff'    ,
+      'Pastel on Dark '  :           '#a6c6ff'    ,
+      'Solarized Dark '  :           '#268bd2'    ,
+      'Ubuntu         '  :           '#e95420'    ,
 }
 @var color c_c_clr                   'Custom caret color'         '#04f911'
 ==/UserStyle== */
@@ -265,29 +265,29 @@ gy       = GY
 // All colors: `cp: ft gy fb`
 // Legend cp: text-color border-color background-color`
 cp(x, y = 0, z = 0, xi = 1, yi = 1, zi = 1) {
-    if x != 0 && x != '_' {            color: xi is 0 ? x : x }
-    if y != 0 && y != '_' {     border-color: yi is 0 ? y : y }
-    if z != 0 && z != '_' { background-color: zi is 0 ? z : z }
+  if x != 0 && x != '_' {            color: xi is 0 ? x : x }
+  if y != 0 && y != '_' {     border-color: yi is 0 ? y : y }
+  if z != 0 && z != '_' { background-color: zi is 0 ? z : z }
 }
 
 // Color mixin
 // All colors: `cpl: fb 0 gy fb` or `cpl: 0 fb gy fb`
 // Legend  cpl: background background-color order-color text-color`
 clp(w, x, y, z = 0, wi = 1, xi = 1, yi = 1, zi = 1) {
-    if w != 0 && w != '_' { background      : wi is 0 ? w : w }
-    if x != 0 && x != '_' { background-color: xi is 0 ? x : x }
-    if y != 0 && y != '_' { border-color    : yi is 0 ? y : y }
-    if z != 0 && z != '_' { color           : zi is 0 ? z : z }
+  if w != 0 && w != '_' { background      : wi is 0 ? w : w }
+  if x != 0 && x != '_' { background-color: xi is 0 ? x : x }
+  if y != 0 && y != '_' { border-color    : yi is 0 ? y : y }
+  if z != 0 && z != '_' { color           : zi is 0 ? z : z }
 }
 
 to_svg(input) {
-    s('\%23%s', unquote(substr(s('%s', rgb(input)), 1, 6)))
+  s('\%23%s', unquote(substr(s('%s', rgb(input)), 1, 6)))
 }
 
 // SVG fill/stroke colors.
 fs(x, y = 0, xi = 1, yi = 1) {
-    if x != 0 && x != '_' {   fill: xi is 0 ? x : x }
-    if y != 0 && y != '_' { stroke: yi is 0 ? y : y }
+  if x != 0 && x != '_' {   fill: xi is 0 ? x : x }
+  if y != 0 && y != '_' { stroke: yi is 0 ? y : y }
 }
 
 // Border radius mixin.
