@@ -314,6 +314,7 @@ bsh() { box-shadow: arguments }
     font-family: $fonts
     font-size: var(--font-size)
     border: 1px solid rgba(gy, .5)
+    rad: 3px
     &-hints {
       clp: sb 0 rgba(gy, .2) 0
       font-family: $fonts
@@ -738,7 +739,7 @@ bsh() { box-shadow: arguments }
   }
 
   /input {
-    &[type]:not(.slider) {
+    &[type]:not(.slider), &.style-contributor {
       transition: all .5s
       rad: 3px
       outline: 0
@@ -750,13 +751,17 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &:not([type]) {
+    &:not([type]):not([:invalid]) {
       clp: fb 0 rgba(gy, .3) tt
 
       rad: c_rad
-      outline: 0
-      &[data-focused-via-click]:focus {
-        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      // fix the colorpickers hotkey input width to fit the dialog
+      width: 98%
+      &[data-focused-via-click] {
+        &:focus, &:focus-within {
+          box-shadow: 0 0 3px 0 ac i
+          border: 1px solid ac i
+        }
       }
     }
 
@@ -774,8 +779,9 @@ bsh() { box-shadow: arguments }
 
           .svg-icon.checked { fs: ac }
         }
-        &:not([disabled]):hover .svg-icon.checked, &:focus-within .svg-icon.checked {
-            fs: ac 0
+        &:not([disabled]):hover .svg-icon.checked,
+        &:focus-within .svg-icon.checked {
+          fs: ac 0
         }
         &:disabled {
           background-color: t
@@ -821,17 +827,20 @@ bsh() { box-shadow: arguments }
       height: 25px
       padding-left: .25em
       text-align: left
+      rad: c_rad
       &:hover, &:focus-within {
         cp: 0 ac tb
         outline: 0
       }
-      &[data-focused-via-click]:focus {
-        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      &[data-focused-via-click] {
+        &:focus, &:focus-within {
+          box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+        }
       }
     }
 
     &[type='radio' i] {
-      background: tb //hsl(0, 0%, 100%);
+      background: tb
       border: 1px solid rgba(gy, .5)
 
       border-radius: 50% i
@@ -861,10 +870,16 @@ bsh() { box-shadow: arguments }
 
     &[type='search' i]#search { height: 22px }
 
-    &[type='number' i][id*='tabSize'] { margin-bottom: 2px }
+    &[type='number' i][id*='tabSize'] { margin-bottom: 2px; rad: c_rad }
 
     // Width -> Number of applies-to items input min-width
-    &[type='number' i][id*='targets'] { min-width: 40px}
+    &[type='number' i][id*='targets'] { min-width: 40px; rad: c_rad }
+    // apply border-radius to these stragglers
+    &[type='number' i] {
+      &#updateInterval, &#popupWidth, &.config-value { rad: c_rad }
+    }
+    &#name.style-contributor, &[type='search'].can-close-on-esc,
+    &[type='text' i].config-value { rad: c_rad }
 
     &[type='range' i] {
       clp: 0 tb tb ft
@@ -892,8 +907,6 @@ bsh() { box-shadow: arguments }
         rad: 2px
       }
 
-      &
-
       &[data-focused-via-click]:focus {
         box-shadow: none i
       }
@@ -907,12 +920,21 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &:invalid { cp: tt darken(rd, 50%) darken(rd, 70%) }
+    &:invalid {
+      cp: tt darken(rd, 50%) darken(rd, 70%)
+      &[data-focused-via-click] {
+        &:focus, &:focus-within {
+          box-shadow: 0 0 0 1px rd, 0 0 3px rgba(rd, .5)
+        }
+      }
+    }
   }
 
   textarea {
-    &[data-focused-via-click]:focus {
-      box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+    &[data-focused-via-click] {
+      &:focus, &:focus-within {
+        box-shadow: 0 0 0 1px ac, 0 0 3px rgba(ac, .5)
+      }
     }
   }
 
@@ -989,7 +1011,7 @@ bsh() { box-shadow: arguments }
     color: #f3f
     transition: color 0.5s
     &:hover {
-      color: #f3f
+      color: #f3f i
     }
   }
 
@@ -1057,7 +1079,7 @@ bsh() { box-shadow: arguments }
     }
   }
 
-  /select {
+  select {
     background-color: t
     border: 1px solid rgba(gy, .5)
     color: st
@@ -1092,9 +1114,7 @@ bsh() { box-shadow: arguments }
     }
 
     option {
-      appearance: none
-      cp: st 0 sb
-      rad: c_rad
+      cp: st 0 fb
       &:disabled {
         /* restore disabled state dimming */
         color: rgba(gy, .5)
@@ -1134,7 +1154,7 @@ bsh() { box-shadow: arguments }
     }
 
     // Opinionated select bg color see #filters below:
-    select {
+    select#manage\.newUI\.sort {
       cp: st 0 tb
       outline: 0
       &:hover, &:focus-within {
@@ -1160,16 +1180,19 @@ bsh() { box-shadow: arguments }
     background-color: tb
   }
 
-  // Dont style filters select bg due to opinionated bg color
+  // filters select bg tweaks
   #filters {
     border: 1px solid t
-    select:not(#manage\.newUI\.sort) {
-      background-color: t
+    select {
+      background-color: fb
 
       border: 0
       outline: 0
+
+      margin: 1px 2.5px
+      rad: 0
       &:hover {
-        background-color: t
+        background-color: fb
         border: 0
       }
     }
@@ -1185,6 +1208,7 @@ bsh() { box-shadow: arguments }
     color: ft
 
     padding: 5px 5px 3px 5px
+    margin-top: -2px
     rad: c_rad
   }
 
@@ -1213,7 +1237,7 @@ bsh() { box-shadow: arguments }
 
   // Multi-section -> allow first section margin due to searchbox overlap
   .section-editor .section {
-    margin-top: 1rem
+    margin-top: .6rem
     padding: 1rem
 
     &:not(:first-child) {
@@ -1399,7 +1423,7 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    // tweak space bbelwoe last label especially containing a color swatch
+    // tweak space below last label especially containing a color swatch
     &.config-dialog {
       #message-box-contents {
         min-width: var(--header-width)
@@ -1491,21 +1515,31 @@ bsh() { box-shadow: arguments }
     }
   }
 
-  // FF ignores color with 'auto'
-  // Added button[data-focused-via-click] entry for non popup entries
-  .firefox .danger #message-box-buttons,
-  .danger #message-box-buttons {
-    > button:not([data-focused-via-click]):first-child:focus,
-    > button[data-focused-via-click]:first-child:focus {
-      background: rd
-      border: 1px solid lighten(rd, 20%)
-      color: st
+  .firefox {
+    // select fixes options menu; height and arrow accent fill on hover + align
+    // this generally looks not as high element + now styling behaves consistently
+    .sync-options .select-resizer {
+      &:hover .select-arrow {
+        fill: ac i
+      }
+      .select-arrow { top: 5px }
+    }
+    select.cloud-name { height: 25px }
+    // FF ignores color with 'auto'
+    // Added button[data-focused-via-click] entry for non popup entries
+    .danger #message-box-buttons {
+      > button:not([data-focused-via-click]):first-child:focus,
+      > button[data-focused-via-click]:first-child:focus {
+        background: rd
+        border: 1px solid lighten(rd, 20%)
+        color: st
 
-      outline: 0
-      &:hover {
-        background: lighten(rd, 10%)
-        border: 1px solid lighten(rd, 30%)
-        color: ft
+        outline: 0
+        &:hover {
+          background: lighten(rd, 10%)
+          border: 1px solid lighten(rd, 30%)
+          color: ft
+        }
       }
     }
   }
@@ -1841,6 +1875,7 @@ bsh() { box-shadow: arguments }
     background: fb
     border: 1px solid rgba(gy, .5)
     color: tt
+    height: 22px
 
     rad: c_rad
   }
@@ -1854,19 +1889,18 @@ bsh() { box-shadow: arguments }
   #import pre { background: tb }
 
   /* drag-n-drop on import button */
-  .dropzone:after {
-    background-color: rgba(tb, 0.7)
+  .dropzone::after {
+    background-color: rgba(tb, .7)
     color: ft
-    padding: calc(50vh - 3em) calc(50vw - 5em)
     content: attr(dragndrop-hint)
-    text-shadow: 1px 1px 10px black
+    text-shadow: 1px 1px 10px fb
     animation: fadein 1s cubic-bezier(.03, .67, .08, .94)
     animation-fill-mode: both
   }
 
-  .fadeout.dropzone:after {
-    animation: fadeout .25s ease-in-out;
-    animation-fill-mode: both;
+  .fadeout.dropzone::after {
+    animation: fadeout .25s ease-in-out
+    animation-fill-mode: both
   }
 
   #backup-buttons {
@@ -1930,34 +1964,8 @@ bsh() { box-shadow: arguments }
     }
   }
 
-  // Colorpicker and friends
-  .color-swatch {
-    border: 1px solid rgba(gy, .5)
-    rad: c_rad
-    &:hover, &:focus-within {
-      border: 1px solid ac
-      outline: 0
-    }
-  }
-
-  .colorpicker {
-    &-popup {
-      box-shadow: 3px 3px 50px rgba(tb, .5) i
-      rad: c_rad
-    }
-
-    &-opacity-bar {
-      background: linear-gradient(to right, t, rgba(tb, 1))
-    }
-
-    &-saturation-container { rad: c_rad c_rad 0 0 }
-    /input[type='text' i] {
-      height: 25px
-      rad: c_rad
-    }
-  }
-
-  [class*='colorpicker-theme-'] {
+  // colorpicker and friends
+  [class*='colorpicker-theme'] {
     --main-background-color: tb
     --main-border-color: rgba(gy, .5)
 
@@ -1978,6 +1986,114 @@ bsh() { box-shadow: arguments }
     --invalid-border-color: rgba(rd, .5)
     --invalid-background-color: rgba(rd, .3)
     --invalid-color: rd
+
+    // colorpicker-popup after all the tweaks nees to be slightly taller.
+    --fit-height: 251px i
+    --swatch-size: 10px i
+  }
+
+  .color-swatch {
+    border: 1px solid rgba(gy, .5)
+    rad: c_rad
+    &:hover, &:focus-within {
+      border: 1px solid ac
+      outline: 0
+    }
+  }
+
+  .colorpicker {
+    &-popup {
+      box-shadow: 3px 3px 50px rgba(tb, .5) i
+      rad: c_rad
+    }
+
+    &-opacity-bar {
+      background: linear-gradient(to right, t, rgba(tb, 1))
+    }
+
+    &-saturation-container { rad: c_rad c_rad 0 0 }
+
+    &-palette {
+      // the new pallet causes some scrollbar to show
+      overflow-y: hidden i
+      .colorview-swatch::before {
+        border-color: rgba(gy, .5)
+        margin: .1rem 0
+        rad: c_rad
+      }
+      &-hint {
+        color: tt
+        cursor: help
+        transition: .2s ease-in
+        &:hover { color: ft }
+      }
+    }
+
+    // add custom border radius
+    &-input-field input[type] {
+      height: 25.2333px
+      rad: c_rad
+    }
+
+    &-format-change-button {
+      transition: .2s ease-in
+    }
+
+    &-hue-knob, &-opacity-knob {
+      background-color: st
+      border: 1px solid rgba(gy, .5)
+      box-shadow: 0 0 2px 0 rgba(fb, 1)
+      // apply custom border-radius here
+      rad: c_rad
+      &:hover {
+        background-color: yl
+      }
+    }
+
+    &-hsl {
+      &-h::before {
+        // degree
+        font-size: 16px
+        right: -3px
+      }
+
+      &-s, &-l {
+        &::before {
+          content: "%"
+          right: -5px
+          top: 11px
+          font-size: 11px
+        }
+      }
+    }
+
+    // apply custom border-radius here
+    &-swatch, &-empty {
+      rad: c_rad
+    }
+
+    &-popup-mover {
+      height: 30px
+      transition: .2s ease-in
+      &:hover {
+        opacity: 1
+      }
+    }
+  }
+
+  // codemirror color swatch
+  .colorview-swatch {
+    &::before {
+      rad: c_rad
+      height: 12px
+      width: @height
+      margin: .1333rem -.04333rem
+    }
+    &:hover {
+      &::before {
+        border-color: yl
+      }
+    }
   }
 
   // Popup
@@ -2251,7 +2367,7 @@ bsh() { box-shadow: arguments }
 
       outline: 0
       rad: c_rad
-      &:focus { box-shadow: inset 0 0 0 1px ac }
+      &:focus, &:focus-within { box-shadow: inset 0 0 0 1px ac }
     }
 
     [data-action='case' i] {
@@ -2266,6 +2382,7 @@ bsh() { box-shadow: arguments }
       background-color: rgba(ac, .5)
 
       transition: background-color .3s
+      rad: c_rad
       &:hover { clp: 0 ac 0 0 }
     }
 
@@ -2409,8 +2526,8 @@ bsh() { box-shadow: arguments }
 
         &-selected { background-color: rgba(gy, .3); color: ft }
         &-linenumber {
-            color: tt
-            &:hover { color: st }
+          color: tt
+          &:hover { color: st }
         }
       }
 
