@@ -751,7 +751,7 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &:not([type]):not([:invalid]) {
+    &:not([type]) {
       clp: fb 0 rgba(gy, .3) tt
 
       rad: c_rad
@@ -920,8 +920,9 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &:invalid {
-      cp: tt darken(rd, 50%) darken(rd, 70%)
+    &:invalid, &[required]:not(.config-value) {
+      cp: tt 0 darken(rd, 70%)
+      border: 1px solid darken(rd, 50%)
       &[data-focused-via-click] {
         &:focus, &:focus-within {
           box-shadow: 0 0 0 1px rd, 0 0 3px rgba(rd, .5)
