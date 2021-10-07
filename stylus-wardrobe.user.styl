@@ -1687,8 +1687,14 @@ bsh() { box-shadow: arguments }
         }
       }
 
-      .style-info[data-type='age' i] {
-        color: rgba(tt, .7)
+      .style-info {
+        &[data-type='age' i] {
+          color: rgba(tt, .7)
+        }
+        // upstream stylus blocked this https://git.io/JwQ2q makes no sense.
+        &[data-type='version'][data-value='1.0.0'] {
+          display: inline
+        }
       }
 
       .svg-icon {
