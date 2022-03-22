@@ -49,10 +49,13 @@
 @var     text  notice_header_txt     'Notice header text          ' Notice
 @var     text  style_type_usercss    'Type label userCSS          ' userCSS
 
-@var   number  custom_header_width   'Header width    '             [280, 280, 300, 1, 'px']
-@var   number  font_size             'Editor font size'             [12, 12, 20, 1, 'px']
-@var   number  c_rad                 'Controls radius '             [3, 3, 12, 1, 'px']
-@var   number  caret_width           'Caret width     '             [1, 1, 8, 1, 'px']
+
+@var   number  custom_header_width   'Header width                ' [280, 280, 300, 1, 'px']
+@var   number  actions_width         'Actions width               ' [75, 75, 95, 1, 'px']
+@var   number  font_size             'Editor font size            ' [12, 12, 20, 1, 'px']
+@var   number  c_rad                 'Controls radius             ' [3, 3, 12, 1, 'px']
+
+@var   number  caret_width           'Caret width                 ' [1, 1, 8, 1, 'px']
 @var   select  caret_color           'Caret color ' {
       'Custom         '  :           'c_c_clr'    ,
       'Twilight       '  :           '#8f9d6a'    ,
@@ -280,7 +283,7 @@ clp(w, x, y, z = 0, wi = 1, xi = 1, yi = 1, zi = 1) {
   if z != 0 && z != '_' { color           : zi is 0 ? z : z }
 }
 
-to_svg(input) {
+to_hex(input) {
   s('\%23%s', unquote(substr(s('%s', rgb(input)), 1, 6)))
 }
 
@@ -306,6 +309,7 @@ bsh() { box-shadow: arguments }
     --caret-width   : caret_width
     --font-size     : font_size
     --header-width  : custom_header_width
+    --actions-width : actions_width
   }
 
   $fonts = 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace
