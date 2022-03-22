@@ -15,9 +15,6 @@
   <a href="https://github.com/style-it-themes/stylus-wardrobe/releases">
     <img src="https://img.shields.io/github/tag/style-it-themes/stylus-wardrobe.svg?label=Current%20Version&style=for-the-badge" alt="Current version">
   </a>
-  <a href="https://david-dm.org/Style-it-Themes/stylus-wardrobe?type=dev">
-    <img src="https://img.shields.io/david/dev/style-it-themes/stylus-wardrobe.svg?label=devDependencies&style=for-the-badge" alt="devDependencies">
-  </a>
 </p>
 
 # TOC
