@@ -549,7 +549,7 @@ bsh() { box-shadow: arguments }
 
     &.find-open {
       .search-target-editor {
-        box-shadow: 0 0 0 1px oj
+        box-shadow: 0 0 0 1px ac
         /* same as our global.css focus rule */
         outline: 0
       }
@@ -717,7 +717,7 @@ bsh() { box-shadow: arguments }
     color: st
 
     rad: c_rad
-    font: inherit;
+    font: inherit
     transition: color .5s
     &:not(:disabled):hover,
     &:not(:disabled):focus-within {
@@ -751,7 +751,7 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &:not([type]) {
+    &:not([type]):not(.applies-value) {
       clp: fb 0 rgba(gy, .3) tt
 
       rad: c_rad
@@ -765,13 +765,14 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &[type='checkbox' i] {
+    &[type='checkbox'] {
       &:not(.slider) {
         background-color: rgba(fb, .1)
         border: 1px solid rgba(gy, .5)
 
-        height: 14px
-        width: 14px
+        height: .88rem
+        width: @height
+        rad: 2px
 
         &:hover, &:focus-within {
           background-color: tb
@@ -820,7 +821,7 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &[type='number' i], &[type='search' i], &[type='search' i]#search {
+    &[type='number'], &[type='search'], &[type='search']#search {
       clp: fb 0 0 tt
       border: 1px solid rgba(gy, .5)
 
@@ -839,7 +840,7 @@ bsh() { box-shadow: arguments }
       }
     }
 
-    &[type='radio' i] {
+    &[type='radio'] {
       background: tb
       border: 1px solid rgba(gy, .5)
 
@@ -1264,7 +1265,7 @@ bsh() { box-shadow: arguments }
       color: st
       transition: all .25s
       // fix margin
-      margin-right: 4px
+      margin-right: 2px
       rad: c_rad
       &:hover, &:focus {
         background-color: tb
@@ -1304,6 +1305,11 @@ bsh() { box-shadow: arguments }
         /* restore disabled state dimming */
         color: rgba(gy, .5) i
       }
+    }
+    .test-regexp {
+      padding: 2px 3px
+      margin-right: .2rem
+      margin-left: .1rem
     }
   }
 
@@ -1674,7 +1680,7 @@ bsh() { box-shadow: arguments }
         }
 
         // Opinionated checkbox border color on hover
-        input[type='checkbox' i] { border-color: ac }
+        input[type='checkbox'] { border-color: ac }
       }
 
       &.odd {
@@ -1695,6 +1701,10 @@ bsh() { box-shadow: arguments }
         &[data-type='version'][data-value='1.0.0'] {
           display: inline
         }
+      }
+
+      .style-name-link {
+        font-weight: normal
       }
 
       .svg-icon {
@@ -1816,11 +1826,11 @@ bsh() { box-shadow: arguments }
   }
 
   .can-update[data-details$='locally edited' i] button.update::after {
-      content: '⭐'
+    content: '⭐'
   }
 
   .style-info[data-type='version' i] {
-      color: rgba(tt, .8)
+    color: rgba(tt, .8)
   }
 
   /* highlight updated/added styles */
