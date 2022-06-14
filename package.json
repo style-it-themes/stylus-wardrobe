@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "eclint": "^2.8.1",
-    "updates": "^13.0.4",
-    "versions": "^9.2.2"
+    "updates": "^13.1.0",
+    "versions": "^9.2.3"
   },
   "scripts": {
     "authors": "bash tools/authors.sh",
