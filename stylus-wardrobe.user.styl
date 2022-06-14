@@ -42,15 +42,13 @@
 @var checkbox  ehc_highlight_colors  'Editor highlight colors     ' 1
 @var checkbox  upd_problem_tooltips  'Show update problem tooltips' 1
 @var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages  ' 1
-@var checkbox  show_details          'Show style details          ' 0
 @var checkbox  show_usw              'Show USW integration        ' 1
 @var checkbox  show_notice_header    'Show notice header          ' 1
 
 @var     text  notice_header_txt     'Notice header text          ' Notice
 @var     text  style_type_usercss    'Type label userCSS          ' userCSS
 
-
-@var   number  custom_header_width   'Header width                ' [280, 280, 300, 1, 'px']
+@var   number  custom_popup_width    'Sylus popup width           ' [280, 280, 300, 1, 'px']
 @var   number  actions_width         'Actions width               ' [75, 75, 95, 1, 'px']
 @var   number  font_size             'Editor font size            ' [12, 12, 20, 1, 'px']
 @var   number  c_rad                 'Controls radius             ' [3, 3, 12, 1, 'px']
@@ -308,8 +306,10 @@ bsh() { box-shadow: arguments }
     --caret-color   : caret_color
     --caret-width   : caret_width
     --font-size     : font_size
-    --header-width  : custom_header_width
+    --header-width  : custom_popup_width
     --actions-width : actions_width
+
+    --red1          : rd
   }
 
   $fonts = 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace
@@ -527,10 +527,13 @@ bsh() { box-shadow: arguments }
 
   .firefox body { cp: st 0 fb }
 
+  html:not(.styles-last) .split-btn-pedal::after { top: 0 }
+
   body {
     cp: st 0 fb
-
     font: normal 12px Arial, system-ui, sans-serif
+
+    > div:not(#installed):not(#message-box):not(.colorpicker-popup) { padding-right: 0 }
 
     &.all-styles-hidden-by-filters {
 
@@ -723,6 +726,7 @@ bsh() { box-shadow: arguments }
     rad: c_rad
     font: inherit
     transition: color .5s
+    cursor: pointer
     &:not(:disabled):hover,
     &:not(:disabled):focus-within {
       background-color: tb
@@ -739,6 +743,64 @@ bsh() { box-shadow: arguments }
     &:disabled {
       /* restore disabled state dimming */
       cp: rgba(gy, .5) rgba(gy, .2) tb
+    }
+    &#save-button {
+      rad: 3px 0 0 3px
+      width: 80%
+    }
+    &#beautify {
+      margin-left: 2px i
+    }
+    &#cancel-button {
+      padding: 0 .2em
+      font-weight: bold
+      rad: 3px
+    }
+    &#file-all-styles {
+      rad: 3px 0 0 3px
+    }
+    &#find-styles-btn {
+      rad: 3px 0 0 3px
+      width: 180% i
+    }
+    &#manage-options-button {
+      margin-right: 3px
+      width: 280% i
+    }
+    &#options-btn {
+      background: t
+      border-color: t
+      float: right
+      svg {
+        fill: ft
+      }
+    }
+    &:hover svg, &:focus-within svg {
+      fill: ac i
+    }
+  }
+
+  .split-btn {
+    &-menu {
+      background-color: tb
+      border: 1px solid rgba(gy, .5)
+      white-space: nowrap
+      padding: .1em 0
+      box-shadow: rgba(fb, .5) 2px 3px 7px
+      rad: 3px
+      height: auto
+      margin-top: .1rem
+      > :hover {
+        background-color: rgba(ac, .5)
+        border-color: ac
+        color: ft
+      }
+      a {
+        margin-top: -.16rem
+      }
+    }
+    &-pedal{
+      rad: 0 3px 3px 0
     }
   }
 
@@ -1317,6 +1379,22 @@ bsh() { box-shadow: arguments }
     }
   }
 
+  input.w100 {
+    background: fb i
+    border: 1px solid rgba(gy, .5) i
+    padding: 4px i
+    rad: 3px
+  }
+  textarea.w100 {
+    background: fb i
+    border: 1px solid rgba(gy, .5) i
+    padding: 4px i
+    rad: 1px
+  }
+  #ss-scheme div {
+    margin-bottom: 8px
+  }
+
   .add-applies-to,
   .remove-applies-to {
     .svg-icon { fs: tt }
@@ -1360,6 +1438,9 @@ bsh() { box-shadow: arguments }
     .dismiss {
       top: .7em
       right: .5em
+      &.svg-icon {
+        top: 0
+      }
     }
 
     .active-linter-rule {
@@ -1930,7 +2011,7 @@ bsh() { box-shadow: arguments }
       &-content {
         background-color: sb
         border: 1px solid rgba(gy, .2)
-        box-shadow: 0px 8px 16px 0px rgba(fb, .2)
+        box-shadow: 0 8px 16px 0 rgba(fb, .2)
         rad: c_rad
         a {
           color: st
@@ -2136,15 +2217,6 @@ bsh() { box-shadow: arguments }
         }
       }
     }
-    if (show_details) {
-      #write-style::after {
-        content: '' + version
-        color: rgba(tt, .5)
-        margin-top: 5px
-        margin-left: auto
-        margin-bottom: -3px
-      }
-    }
 
     // style select arrow on state + tweak top
     .select-resizer {
@@ -2152,6 +2224,13 @@ bsh() { box-shadow: arguments }
       &:hover, &:focus-within {
         .select-arrow { fs: ac }
       }
+    }
+
+    #write-as > div {
+      margin-top: .4rem
+    }
+    .match {
+      margin-top: .6rem
     }
   }
 
@@ -2420,6 +2499,16 @@ bsh() { box-shadow: arguments }
   // align msg box title to middle
   #message-box-title:not(*:root) {
     padding-top: 1.1rem
+  }
+
+  button {
+    &#cancel-button {
+      padding: .1em .2em
+    }
+    &#find-styles-btn {
+      rad: 3px 0 0 3px
+      width: 90% i
+    }
   }
 
   // tweak specific input types for consistency between FF and C
