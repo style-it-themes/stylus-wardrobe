@@ -48,7 +48,7 @@
 @var     text  notice_header_txt     'Notice header text          ' Notice
 @var     text  style_type_usercss    'Type label userCSS          ' userCSS
 
-@var   number  custom_popup_width    'Sylus popup width           ' [280, 280, 300, 1, 'px']
+@var   number  custom_header_width   'Sylus header width          ' [295, 270, 300, 1, 'px']
 @var   number  actions_width         'Actions width               ' [75, 75, 95, 1, 'px']
 @var   number  font_size             'Editor font size            ' [12, 12, 20, 1, 'px']
 @var   number  c_rad                 'Controls radius             ' [3, 3, 12, 1, 'px']
@@ -729,6 +729,7 @@ bsh() { box-shadow: arguments }
     font: inherit
     transition: color .5s
     cursor: pointer
+    padding: 3px 8px
     &:not(:disabled):hover,
     &:not(:disabled):focus-within {
       background-color: tb
@@ -754,20 +755,23 @@ bsh() { box-shadow: arguments }
       margin-left: 2px i
     }
     &#cancel-button {
-      padding: 0 .2em
+      padding: .1244em .4em i
       font-weight: bold
       rad: 3px
     }
     &#file-all-styles {
       rad: 3px 0 0 3px
     }
+    &#popup-manage-button {
+      rad: 3px 0 0 3px i
+      margin-left: 2px i
+    }
     &#find-styles-btn {
       rad: 3px 0 0 3px
       width: 180% i
-    }
+     }
     &#manage-options-button {
       margin-right: 3px
-      //width: 280% i
     }
     &#options-btn {
       background: t
@@ -781,7 +785,23 @@ bsh() { box-shadow: arguments }
       fill: ac i
     }
   }
-
+  #popup-options {
+    button {
+      padding: 4px 8px
+      &#options-btn {
+        margin-left: 1px i
+      }
+    }
+  }
+  #manage-split {
+    rad: 3px 3px 3px 3px i
+    button#popup-manage-button {
+      rad: 3px i
+    }
+  }
+  .if-not-blocked {
+     margin-left: -1px
+  }
   .split-btn {
     &-menu {
       background-color: tb
@@ -803,6 +823,18 @@ bsh() { box-shadow: arguments }
     }
     &-pedal{
       rad: 0 3px 3px 0
+      margin-left: -2px
+    }
+    button {
+      margin-right: 1px
+      border-left: 1px solid t
+      &#find-styles-btn, &#popup-manage-button {
+        border-left: 1px solid rgba(gy, .5) i
+        margin-left: 2px
+        &:hover {
+           border-color: ac i
+        }
+      }
     }
   }
 
@@ -1211,6 +1243,7 @@ bsh() { box-shadow: arguments }
     box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
     -webkit-box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
     width: var(--header-width)
+
     summary {
       outline: 0
       &:hover h2 {
@@ -2234,18 +2267,39 @@ bsh() { box-shadow: arguments }
     .match {
       margin-top: .6rem
     }
+
+    .blocked-info {
+      text-align: justify
+      label {
+        color: lighten(gr, 5%)
+        text-align: center
+      }
+    }
+    &.blocked {
+      margin-right: 9px
+      #options-btn {
+        background-color: tb
+        border: 1px solid rgba(gy, .5)
+      }
+    }
   }
 
   .not-applied:hover .style-name { color: rd }
 
   #disableAll {
+    border-color: rd
+    background-color: sb
     &:hover {
       border-color: rd
       background-color: sb
     }
-    &-label:hover {
+    &:focus {
+      box-shadow: 0 0 3px rgba(rd, 1)
+    }
+    &-label, &-label:hover {
       color: rd
     }
+
   }
 
   #installed {
@@ -2503,16 +2557,43 @@ bsh() { box-shadow: arguments }
     padding-top: 1.1rem
   }
 
+  #stylus-popup[style*='min-width'] {
+    margin: 0 1rem i
+  }
+
   button {
+    padding: .3em .6em
     &#cancel-button {
-      padding: .1em .2em
+      padding: .233em .4em i
     }
     &#find-styles-btn {
       rad: 3px 0 0 3px
       width: 90% i
     }
+    &#popup-manage-button {
+      rad: 3px 0 0 3px i
+      margin-left: 2px i
+    }
   }
-
+  .split-btn {
+    &-pedal{
+      rad: 0 3px 3px 0 i
+    }
+    button {
+      margin-right: 1px i
+      border-left: 1px solid t i
+    }
+  }
+  .if-not-blocked {
+    &.split-btn-pedal {
+      rad: 0 3px 3px 0px i
+      border-left: 1px solid rgba(gy, .5)
+    }
+    /#popup-options #options-btn {
+      margin-left : -.2em i
+      margin-right: .2em i
+    }
+  }
   // tweak specific input types for consistency between FF and C
   input {
     &[type='color' i] {
