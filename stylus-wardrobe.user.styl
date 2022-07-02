@@ -296,20 +296,24 @@ rad() { border-radius: arguments }
 
 // Box-shadow mixin.
 bsh() { box-shadow: arguments }
+// text-shadow mixin.
+tsh() { text-shadow: arguments }
 
 @-moz-document regexp('moz-extension://.*'), regexp('chrome-extension://.*') {
   // moz-extension - chrome-extension
   :root {
-    --style-details : unquote(version)
-    --license       : unquote($licence)
-    --homepage      : unquote($url)
-    --caret-color   : caret_color
-    --caret-width   : caret_width
-    --font-size     : font_size
-    --header-width  : custom_popup_width
-    --actions-width : actions_width
+    --style-details        : unquote(version)
+    --license              : unquote($licence)
+    --homepage             : unquote($url)
+    --caret-color          : caret_color
+    --caret-width          : caret_width
+    --font-size            : font_size
+    --header-width         : custom_header_width
+    --header-resizer-width : 8px
+    --actions-width        : actions_width
 
-    --red1          : rd
+    --red1                 : rd
+    --accent-3             : rgba(ac, .7) i
   }
   // bug 1.5.25
    #search-wrapper, #sort-wrapper { display: block }
@@ -332,7 +336,7 @@ bsh() { box-shadow: arguments }
     // Tweak foldmarker
     &-foldmarker {
         color: ft
-        text-shadow: none
+        tsh: none
         font-size: 18px
     }
 
@@ -535,7 +539,7 @@ bsh() { box-shadow: arguments }
     cp: st 0 fb
     font: normal 12px Arial, system-ui, sans-serif
 
-    > div:not(#installed):not(#message-box):not(.colorpicker-popup) { padding-right: 0 }
+    > div:not(#installed):not(#message-box):not(.colorpicker-popup):not(#help-popup) { padding-right: 0 }
 
     &.all-styles-hidden-by-filters {
 
@@ -631,7 +635,7 @@ bsh() { box-shadow: arguments }
 
   #search-results {
     .search-results-nav button:not(:disabled):hover {
-      text-shadow: 0 1px 4px rgba(st, .5)
+      tsh: 0 1px 4px rgba(st, .5)
     }
 
     .lds-spinner {
@@ -750,6 +754,13 @@ bsh() { box-shadow: arguments }
     &#save-button {
       rad: 3px 0 0 3px
       width: 80%
+      &:hover {
+         border-color: ac i
+      }
+      &[disabled]:hover {
+        border-color: rgba(gy, .2) i
+        cursor: auto
+      }
     }
     &#beautify {
       margin-left: 2px i
@@ -763,20 +774,16 @@ bsh() { box-shadow: arguments }
       rad: 3px 0 0 3px
     }
     &#popup-manage-button {
-      rad: 3px 0 0 3px i
       margin-left: 2px i
     }
     &#find-styles-btn {
       rad: 3px 0 0 3px
-      width: 180% i
-     }
+    }
     &#manage-options-button {
       margin-right: 3px
     }
     &#options-btn {
-      background: t
-      border-color: t
-      float: right
+      margin-right: 1em i
       svg {
         fill: ft
       }
@@ -792,11 +799,18 @@ bsh() { box-shadow: arguments }
         margin-left: 1px i
       }
     }
-  }
-  #manage-split {
-    rad: 3px 3px 3px 3px i
-    button#popup-manage-button {
-      rad: 3px i
+    #manage-split {
+      #popup-manage-button[title] {
+        rad: 3px 0 0 3px
+      }
+      #popup-manage-button:not([title]) {
+        rad: 3px i
+      }
+    }
+    .if-blocked #popup-wiki-button {
+      margin-left: -.7em i
+      max-width: 120%
+      width: 109%
     }
   }
   .if-not-blocked {
@@ -827,7 +841,6 @@ bsh() { box-shadow: arguments }
     }
     button {
       margin-right: 1px
-      border-left: 1px solid t
       &#find-styles-btn, &#popup-manage-button {
         border-left: 1px solid rgba(gy, .5) i
         margin-left: 2px
@@ -1223,6 +1236,10 @@ bsh() { box-shadow: arguments }
       }
     }
   }
+  // add vertical gap between select options on sidemenu
+  .ignore-pref-if-compact .option.aligned * {
+    margin-bottom: .07rem
+  }
 
   // Style optgroup
   optgroup {
@@ -1238,17 +1255,24 @@ bsh() { box-shadow: arguments }
     &[title] { opacity: 1 }
   }
 
+  // dont let anyone resize this now, minimum width is bullshit and looks bullshit.
+  // need to come up with a better solution.
+  html[style*='--header-width'] {
+    --header-width : custom_header_width i
+  }
   #header {
     border-right: 1px solid darken(gy, 50%)
     box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
     -webkit-box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
-    width: var(--header-width)
+    &-resizer {
+      color: lighten(tb, 15%)
+      border-color: @color
+      &:active { border-color: rgba(ac, .6) }
+    }
 
     summary {
       outline: 0
-      &:hover h2 {
-        border-color: gy
-      }
+      &:hover h2 { border-color: gy }
       &:focus-within h2,
       &:focus-within::marker {
         color: ac
@@ -1272,9 +1296,7 @@ bsh() { box-shadow: arguments }
     .select-wrapper,
     .sorter-selection {
       &:hover, &:focus-within {
-        .svg-icon.select-arrow {
-          fill: ac i
-        }
+        .svg-icon.select-arrow { fill: ac i }
       }
     }
   }
@@ -1316,12 +1338,8 @@ bsh() { box-shadow: arguments }
   }
 
   #reset-filters {
-    svg {
-      fill: tt
-    }
-    &:hover svg {
-      fill: ac
-    }
+    svg { fill: tt }
+    &:hover svg { fill: ac }
   }
 
   #preview-errors {
@@ -1408,9 +1426,9 @@ bsh() { box-shadow: arguments }
       }
     }
     .test-regexp {
-      padding: 2px 3px
+      padding: 2px 10px
       margin-right: .2rem
-      margin-left: .1rem
+      margin-left: .3rem
     }
   }
 
@@ -1469,6 +1487,10 @@ bsh() { box-shadow: arguments }
     box-shadow: 3px 3px 10px rgba(sb, .5)
     border: 1px solid rgba(gy, .3)
     rad: c_rad
+    // due to other tweaks the help menu
+    // header was longer than the section below
+    margin: 0 auto
+    width: 30%
     // Align dismiss align
     .dismiss {
       top: .7em
@@ -1716,9 +1738,9 @@ bsh() { box-shadow: arguments }
         color: st
 
         text-transform: capitalize
-        text-shadow: 0 1px fb // test shadow
-        padding: 2px 5px 3px
-        vertical-align: middle
+        tsh: 0 1px fb // test shadow
+        padding: 4px 5px 2px
+        vertical-align: .1rem
         rad: c_rad
       }
     }
@@ -1808,6 +1830,7 @@ bsh() { box-shadow: arguments }
       }
 
       .style-name {
+        padding-right: initial
         &:hover::before {
           background: linear-gradient(to right, hsla(gy, .1), hsla(gy, .09) 50%, t)
         }
@@ -1887,6 +1910,7 @@ bsh() { box-shadow: arguments }
     }
 
     .target {
+      max-width: calc(75vw - var(--header-width) - var(--actions-width) - var(--name-padding-left) - var(--name-padding-right) - 7rem)
       &:hover { background-color: inherit }
 
       img {
@@ -1935,7 +1959,7 @@ bsh() { box-shadow: arguments }
           color: st
 
           text-transform: capitalize
-          text-shadow: 0 1px fb // test shadow
+          tsh: 0 1px fb // test shadow
           rad: c_rad
         }
         .style-info[data-type='version' i] {
@@ -2030,7 +2054,7 @@ bsh() { box-shadow: arguments }
     background-color: rgba(tb, .7)
     color: ft
     content: attr(dragndrop-hint)
-    text-shadow: 1px 1px 10px fb
+    tsh: 1px 1px 10px fb
     animation: fadein 1s cubic-bezier(.03, .67, .08, .94)
     animation-fill-mode: both
   }
@@ -2096,7 +2120,7 @@ bsh() { box-shadow: arguments }
     &-error {
       background-color: rd
       color: st
-      text-shadow: 0.5px 0.5px 6px rd
+      tsh: 0.5px 0.5px 6px rd
       animation: fadein .5s
     }
   }
@@ -2328,7 +2352,7 @@ bsh() { box-shadow: arguments }
     color: st
     border-radius: c_rad
     border: 0 i
-    text-shadow: 1px 1px 1px fb
+    tsh: 1px 1px 1px fb
     box-shadow: inset 0 -1px 0 0 rgba(gy, .4),
                 inset 0 1px 0 0 rgba(gy, .5),
                 inset 1px 0 0 0 rgba(gy, .4)
@@ -2520,7 +2544,7 @@ bsh() { box-shadow: arguments }
       background-color: tb
       border-color: rgba(gy, .4)
       color: currentcolor
-
+      max-width: 400px
       outline: 0
       rad: c_rad
       &:focus, &:focus-within { box-shadow: inset 0 0 0 1px ac }
@@ -2557,8 +2581,13 @@ bsh() { box-shadow: arguments }
     padding-top: 1.1rem
   }
 
-  #stylus-popup[style*='min-width'] {
-    margin: 0 1rem i
+  #stylus-popup[style*='width'] {
+    margin: 0 .1rem i
+    width: 280px i
+    #message-box {
+      width: 330px i
+      margin: 2em
+    }
   }
 
   button {
@@ -2568,7 +2597,7 @@ bsh() { box-shadow: arguments }
     }
     &#find-styles-btn {
       rad: 3px 0 0 3px
-      width: 90% i
+      border-right: 0
     }
     &#popup-manage-button {
       rad: 3px 0 0 3px i
@@ -2581,18 +2610,21 @@ bsh() { box-shadow: arguments }
     }
     button {
       margin-right: 1px i
-      border-left: 1px solid t i
     }
   }
   .if-not-blocked {
     &.split-btn-pedal {
-      rad: 0 3px 3px 0px i
-      border-left: 1px solid rgba(gy, .5)
+      rad: 0 3px 3px 0 i
+      border-left: 1px solid t
+      &:hover {
+        border-color: ac i
+      }
+      &:last-child {
+        margin-left: -2px i
+        margin-right: 1em i
+      }
     }
-    /#popup-options #options-btn {
-      margin-left : -.2em i
-      margin-right: .2em i
-    }
+
   }
   // tweak specific input types for consistency between FF and C
   input {
