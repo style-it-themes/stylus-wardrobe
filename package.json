@@ -3,7 +3,7 @@
   "title": "Stylus Wardrobe",
   "description": "An inspired configurable theme for the magnificent Openstyles Stylus",
 
-  "version": "3.0.3",
+  "version": "3.0.4",
   "author": {
     "name": "Style-it Themes: the-j0k3r",
     "url": "https://github.com/style-it-themes/stylus-wardrobe"
@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "eclint": "^2.8.1",
-    "updates": "^13.1.0",
-    "versions": "^9.2.3"
+    "updates": "^13.1.1",
+    "versions": "^9.3.0"
   },
   "scripts": {
     "authors": "bash tools/authors.sh",
