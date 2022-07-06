@@ -351,12 +351,19 @@ tsh() { text-shadow: arguments }
     &-scrollbar-filler, &-gutter-filler { background-color: inherit }
 
     &-hint {
-      color: tt
+      color: ft
 
-      &:hover { clp: 0 ac 0 0 }
+      &:hover { clp: ac 0 0 fb }
       &-active {
-        background-color: ac i
-        color: ft
+        background: ac i
+        color: fb
+      }
+    }
+    &-lint-message {
+      padding: 0 18px 0 23px
+      rad: 3px
+      &-error, &-warning {
+        margin-left: 8px
       }
     }
 
@@ -367,7 +374,7 @@ tsh() { text-shadow: arguments }
 
       &-focused {
         outline: 0
-        border-color: bl
+        border-color: ac
         box-shadow: 0 0 3px 0 bl
       }
 
@@ -567,25 +574,35 @@ tsh() { text-shadow: arguments }
         outline: 0
       }
 
-      .cm-searching {
-        background-color: yl
+      .cm {
+        &-searching {
+          background-color: yl
 
-        if (!(light(yl))) { color: ft }
-        else { color: fb }
-
-        &.search-target-match {
-          background-color: gr
-
-          if (!(light(gr))) { color: ft }
+          if (!(light(yl)) || !(light(gr))) { color: ft }
           else { color: fb }
+
+          &.search-target-match {
+            background-color: gr
+
+            if (!(light(yl)) || !(dark(gr))) { color: ft }
+            else { color: fb }
+          }
+        }
+        &-matchhighlight {
+           background: hsla(ac, .3)
         }
       }
 
-      .CodeMirror-search-match {
-        background: fb i
-        border-top: 2px solid lighten(gr, 30%)
-        padding-bottom: 2px
-        border-bottom: 2px solid lighten(gr, 30%)
+      .CodeMirror {
+        &-search-match {
+          background: fb i
+          border-top: 2px solid lighten(gr, 30%)
+          padding-bottom: 2px
+          border-bottom: 2px solid lighten(gr, 30%)
+        }
+        &-selection-highlight-scrollbar {
+          background: hsla(ac, .5)
+        }
       }
     }
   }
@@ -693,7 +710,7 @@ tsh() { text-shadow: arguments }
 
     // Align close icon
     #options-close-icon {
-      top: .8em
+      top: .73em
       right: .8em
 
       .svg-icon {
@@ -959,18 +976,11 @@ tsh() { text-shadow: arguments }
 
       border-radius: 50% i
       cursor: pointer
-      height: 14px
-      width: 14px
 
-      &::after {
-        background-color: t
-        height: 8px
-        width: 8px
-      }
-
-      &:checked::after {
-        background-color: st
-        transform: scale(1)
+      &:checked {
+        &::after {
+          background-color: st
+        }
       }
 
       &:invalid { cp: rd darken(rd, 50%) darken(rd, 70%) }
@@ -1301,6 +1311,16 @@ tsh() { text-shadow: arguments }
     }
   }
 
+  details[open] {
+    &:not(#sections-list):not(#filters):not(#actions):not(#backup) {
+      min-height: 300px
+      height: 10%
+    }
+    &:nth-child(n + 5) {
+      min-height: 100px
+    }
+  }
+
   .fixed-header #header {
     background-color: tb
   }
@@ -1489,8 +1509,7 @@ tsh() { text-shadow: arguments }
     rad: c_rad
     // due to other tweaks the help menu
     // header was longer than the section below
-    margin: 0 auto
-    width: 30%
+    width: 20%
     // Align dismiss align
     .dismiss {
       top: .7em
@@ -1498,6 +1517,9 @@ tsh() { text-shadow: arguments }
       &.svg-icon {
         top: 0
       }
+    }
+    &.big {
+       width: initial
     }
 
     .active-linter-rule {
@@ -1514,6 +1536,9 @@ tsh() { text-shadow: arguments }
       border-bottom: 1px solid rgba(gy, .1)
       rad: c_rad c_rad 0 0
     }
+  }
+  #search-help, #sorter-help {
+    vertical-align: .2rem
   }
 
   .keymap-list {
@@ -1565,13 +1590,12 @@ tsh() { text-shadow: arguments }
     &-buttons {
       background-color: tb
 
-      rad: c_rad
+      rad: 0 0 c_rad c_rad
       button:not(:disabled):hover {
         background-color: sb
         border-color: ac
       }
     }
-
     // tweak space below last label especially containing a color swatch
     &.config-dialog {
       #message-box-contents {
@@ -1579,6 +1603,27 @@ tsh() { text-shadow: arguments }
         label:last-of-type {
           padding-bottom: .5rem
         }
+      }
+    }
+
+    &.injection-order {
+      div:not(#message-box-close-icon) {
+        width: 30vw
+        #message-box {
+          &-title {
+            min-height: 48px
+          }
+          &-close-icon {
+            margin-top: -.2rem
+          }
+          &-buttons {
+            width: 29.1vw
+            rad: 0 0 c_rad c_rad
+          }
+        }
+      }
+      [data-prio] header {
+        background-color: darken(yl, 50%)
       }
     }
 
@@ -1614,22 +1659,23 @@ tsh() { text-shadow: arguments }
       }
     }
 
-    // Stylus popup message box close icon state fix
-    #message-box-close-icon {
-      &:hover svg { fs: ac 0 }
-    }
 
     &-title {
       background-color: tb
       rad: c_rad c_rad 0 0
 
-      min-height: 52px
+      min-height: 45px
       padding: .85rem 24px .85rem 55px
       &::before {
         left: 1em
         // grayscale logo
         filter: grayscale(1)
       }
+    }
+    &-close-icon {
+      margin-top: -.2rem
+      // Stylus popup message box close icon state fix
+      &:hover svg { fs: ac 0 }
     }
 
     if (show_notice_header) {
@@ -1639,7 +1685,7 @@ tsh() { text-shadow: arguments }
         background-color: tb
         rad: c_rad c_rad 0 0
 
-        min-height: 52px
+        min-height: 45px
         padding-top: .85rem
         &::before {
           filter: grayscale(1)
@@ -2508,7 +2554,7 @@ tsh() { text-shadow: arguments }
       background-color: fb
       border: 0
       &:last-child {
-        box-shadow: 0 0 90px rgba(0, 0, 0, .25)
+        box-shadow: 0 0 90px rgba(fb, .25)
       }
     }
 
