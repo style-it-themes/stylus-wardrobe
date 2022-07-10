@@ -356,7 +356,7 @@ tsh() { text-shadow: arguments }
       &:hover { clp: ac 0 0 fb }
       &-active {
         background: ac i
-        color: fb
+        color: fb i
       }
     }
     &-lint-message {
@@ -590,6 +590,7 @@ tsh() { text-shadow: arguments }
         }
         &-matchhighlight {
            background: hsla(ac, .3)
+           color: st
         }
       }
 
@@ -1271,10 +1272,12 @@ tsh() { text-shadow: arguments }
     --header-width : custom_header_width i
   }
   #header {
+    overflow-x: hidden
     border-right: 1px solid darken(gy, 50%)
     box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
     -webkit-box-shadow: 0 0 3rem -1.2rem darken(fb, 50%)
     &-resizer {
+      background: fb
       color: lighten(tb, 15%)
       border-color: @color
       &:active { border-color: rgba(ac, .6) }
@@ -1307,6 +1310,26 @@ tsh() { text-shadow: arguments }
     .sorter-selection {
       &:hover, &:focus-within {
         .svg-icon.select-arrow { fill: ac i }
+      }
+    }
+    &-contents {
+      min-width: calc(var(--header-width) + 18%) i
+      #install-wrapper {
+        h2 {
+          color: ac
+        }
+        .configure-usercss svg {
+          fill: ft
+          &:hover, &:focus-within, &:focus-visible {
+            fill: ac
+          }
+        }
+      }
+      .set-update-url p {
+        width: 70%
+      }
+      .applies-to {
+         width: 60%
       }
     }
   }
@@ -1417,6 +1440,7 @@ tsh() { text-shadow: arguments }
       border: 1px solid rgba(gy, .5)
       color: st
       transition: all .25s
+      line-height: 1 i
       &:hover {
         background-color: tb
         border-color: ac
@@ -2770,11 +2794,8 @@ tsh() { text-shadow: arguments }
       50% { background-color: t }
       100% {}
     }
-
     /* DEFAULT THEME */
-
     .cm-negative { color: rd }
-
     .cm-positive { color: lighten(gr, 15%) }
 
     .cm-s-default {
@@ -2790,11 +2811,8 @@ tsh() { text-shadow: arguments }
           border-right: 1px inset rgba(gy, .5)
         }
         &-guttermarker { color: st }
-
         &-scrollbar-filler, &-gutter-filler { background-color: t i }
-
         &-focused .CodeMirror-selected { background: rgba(gy, .3) }
-
         &-selected { background-color: rgba(gy, .3); color: ft }
         &-linenumber {
           color: tt
@@ -2803,41 +2821,23 @@ tsh() { text-shadow: arguments }
       }
 
       .cm-header { color: bl }
-
       .cm-quote { color: gr }
-
       .cm-keyword { color: mg }
-
       .cm-atom { color: yl }
-
       .cm-number { color: gr }
-
       .cm-def { color: bl }
-
       .cm-variable, .cm-punctuation, .cm-property, .cm-operator {}
-
       .cm-variable-2 { color: gr }
-
       .cm-variable-3, .cm-type { color: yl }
-
       .cm-comment { color: gy }
-
       .cm-string { color: rd }
-
       .cm-string-2 { color: oj }
-
       .cm-meta, .cm-qualifier { color: bl }
-
       .cm-builtin { color: gr }
-
       .cm-bracket { color: darken(oj, 10%) }
-
       .cm-tag { color: lighten(gr, 10%) }
-
       .cm-attribute, .cm-link { color: lighten(bl, 10%) }
-
       .cm-hr { color: gy }
-
       .cm-error { color: rd }
     }
 
