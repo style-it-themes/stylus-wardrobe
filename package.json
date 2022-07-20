@@ -30,9 +30,9 @@
   },
   "scripts": {
     "authors": "bash tools/authors.sh",
-    "patch": "versions -p -C patch stylus-wardrobe.user.styl",
-    "minor": "versions -p -C minor stylus-wardrobe.user.styl",
-    "major": "versions -p -C major stylus-wardrobe.user.styl",
+    "patch": "versions -p -C patch stylus-wardrobe.user.styl && git psh",
+    "minor": "versions -p -C minor stylus-wardrobe.user.styl && git psh",
+    "major": "versions -p -C major stylus-wardrobe.user.styl && git psh",
     "fix": "eclint fix stylus-wardrobe.user.styl && eclint fix *.md",
     "update": "updates -cuU && npm install"
   }

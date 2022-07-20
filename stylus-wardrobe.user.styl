@@ -1514,6 +1514,10 @@ tsh() { text-shadow: arguments }
 
       & a { color: inherit }
 
+      &[open] {
+        min-height: initial i
+      }
+
       /.regexp-report-note { color: tt }
     }
   }
@@ -1531,9 +1535,7 @@ tsh() { text-shadow: arguments }
     box-shadow: 3px 3px 10px rgba(sb, .5)
     border: 1px solid rgba(gy, .3)
     rad: c_rad
-    // due to other tweaks the help menu
-    // header was longer than the section below
-    //width: 20%
+
     // Align dismiss align
     .dismiss {
       top: .7em
