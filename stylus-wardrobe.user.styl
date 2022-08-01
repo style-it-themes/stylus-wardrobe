@@ -44,6 +44,7 @@
 @var checkbox  wrap_lint_a_bx_msgs   'Wrap lint and box messages  ' 1
 @var checkbox  show_usw              'Show USW integration        ' 1
 @var checkbox  show_notice_header    'Show notice header          ' 1
+@var checkbox  prevent_header_resize 'Prevent resizing header     ' 1
 
 @var     text  notice_header_txt     'Notice header text          ' Notice
 @var     text  style_type_usercss    'Type label userCSS          ' userCSS
@@ -508,12 +509,29 @@ tsh() { text-shadow: arguments }
     }
 
     #message-box.pre #message-box-contents {
-        white-space: pre-wrap
+      white-space: pre-wrap
+    }
+    #toc {
+      overflow-x: hidden
+      li {
+        width: calc(var(--header-width) - 34px)
+      }
     }
   }
 
   if !(show_usw) {
     #publish.ignore-pref-if-compact {
+      display: none
+    }
+  }
+
+  if (prevent_header_resize) {
+    // dont let anyone resize this now, minimum width is bullshit and looks bullshit.
+    // need to come up with a better solution.
+    html[style*='--header-width'] {
+      --header-width: custom_header_width i
+    }
+    #header-resizer {
       display: none
     }
   }
@@ -577,15 +595,11 @@ tsh() { text-shadow: arguments }
       .cm {
         &-searching {
           background-color: yl
-
-          if (!(light(yl)) || !(light(gr))) { color: ft }
-          else { color: fb }
+          color: fb
 
           &.search-target-match {
             background-color: gr
-
-            if (!(light(yl)) || !(dark(gr))) { color: ft }
-            else { color: fb }
+            color: ft
           }
         }
         &-matchhighlight {
@@ -1266,11 +1280,6 @@ tsh() { text-shadow: arguments }
     &[title] { opacity: 1 }
   }
 
-  // dont let anyone resize this now, minimum width is bullshit and looks bullshit.
-  // need to come up with a better solution.
-  html[style*='--header-width'] {
-    --header-width : custom_header_width i
-  }
   #header {
     overflow-x: hidden
     border-right: 1px solid darken(gy, 50%)
@@ -1502,8 +1511,10 @@ tsh() { text-shadow: arguments }
   }
 
   .regexp-report {
-    mark {
-      background-color: rgba(yl, .5)
+    min-width: 21rem
+    ::marker {
+      color: st
+      font-size: 14px
     }
     details {
       &[data-type='full'] { color: gr }
@@ -1516,9 +1527,28 @@ tsh() { text-shadow: arguments }
 
       &[open] {
         min-height: initial i
+        if (dark(sb)) {
+          img {
+            filter: invert(.9)
+          }
+        }
+        else {
+          img {
+            filter: none
+          }
+        }
       }
-
-      /.regexp-report-note { color: tt }
+      details {
+        margin-left: .7rem
+      }
+    }
+    &-note {
+      background-color: tb
+      padding: .4rem .4rem .4rem 1rem
+      color: tt
+      left: 0
+      bottom: -.7rem
+      rad: 0 0 c_rad c_rad
     }
   }
 
@@ -1561,6 +1591,7 @@ tsh() { text-shadow: arguments }
       background-color: tb
       border-bottom: 1px solid rgba(gy, .1)
       rad: c_rad c_rad 0 0
+      padding-left: .8rem
     }
   }
   #search-help, #sorter-help {
@@ -1991,6 +2022,10 @@ tsh() { text-shadow: arguments }
           filter: invert(.95)
         }
       }
+      b::after {
+        background: tt
+        color: fb
+      }
     }
 
     .favicons-grayed .target {
@@ -2383,7 +2418,6 @@ tsh() { text-shadow: arguments }
   .not-applied:hover .style-name { color: rd }
 
   #disableAll {
-    border-color: rd
     background-color: sb
     &:hover {
       border-color: rd
@@ -2392,10 +2426,9 @@ tsh() { text-shadow: arguments }
     &:focus {
       box-shadow: 0 0 3px rgba(rd, 1)
     }
-    &-label, &-label:hover {
+    &-label:hover {
       color: rd
     }
-
   }
 
   #installed {
@@ -2511,6 +2544,15 @@ tsh() { text-shadow: arguments }
       background-color: sb
       border: solid 2px rgba(rd, .5)
       rad: c_rad
+      button {
+        margin-top: .5rem
+        &[data-cmd="ok"] {
+          background: rd
+          border: 1px solid lighten(rd, 40%)
+          color: st
+          box-shadow: none
+        }
+      }
     }
 
     button[data-cmd="ok"]:not([data-focused-via-click]):focus {
