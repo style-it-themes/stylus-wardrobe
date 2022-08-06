@@ -700,7 +700,6 @@ tsh() { text-shadow: arguments }
     rad: c_rad
     #options {
       cp: 0 0 sb
-
       rad: 0 0 c_rad c_rad
     }
 
@@ -2594,9 +2593,7 @@ tsh() { text-shadow: arguments }
     .copy {
       transition: all .1s
       border-bottom: 1px dotted rgba(gy, .5)
-      &:hover {
-        color: st
-      }
+      &:hover { color: st }
       &.copied {
         background: gy
         color: ft
@@ -2648,7 +2645,6 @@ tsh() { text-shadow: arguments }
     box-shadow: 4px 5px 20px -6px rgba(fb, .5)
     border: 1px solid rgba(gy, .2)
     color: st
-
     rad: c_rad
     > * {
       background-color: rgba(sb, .1)
@@ -2658,21 +2654,22 @@ tsh() { text-shadow: arguments }
       background-color: tb
       border-color: rgba(gy, .4)
       color: currentcolor
-      max-width: 400px
+      max-width: calc(40vw - 4em)
       outline: 0
       rad: c_rad
       &:focus, &:focus-within { box-shadow: inset 0 0 0 1px ac }
     }
 
-    [data-action='case' i] {
+    [data-action='case'] {
       color: currentcolor
       &[data-enabled]::after {
         border-color: ac
         border-style: none none solid none
       }
+      &:hover { color: ac }
     }
 
-    [data-action='clear' i] {
+    [data-action='clear'] {
       background-color: rgba(ac, .5)
 
       transition: background-color .3s
@@ -2680,11 +2677,11 @@ tsh() { text-shadow: arguments }
       &:hover { clp: 0 ac 0 0 }
     }
 
-    /[data-type='status' i] { background-color: sb }
+    /[data-type='status'] { background-color: sb }
 
     svg {
       fs: st 0
-      &:hover { fs: ft 0 }
+      &:hover { fs: ac 0 }
     }
   }
 }
