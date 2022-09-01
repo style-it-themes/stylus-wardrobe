@@ -523,6 +523,11 @@ tsh() { text-shadow: arguments }
     #publish.ignore-pref-if-compact {
       display: none
     }
+    #manage-text span {
+      &:nth-child(1), &:nth-child(2) {
+        display: none
+      }
+    }
   }
 
   if (prevent_header_resize) {
@@ -767,9 +772,9 @@ tsh() { text-shadow: arguments }
     padding: 3px 8px
     &:not(:disabled):hover,
     &:not(:disabled):focus-within {
-      background-color: tb
+      background-color: rgba(ac, .7)
       border: 1px solid ac
-      color: ac
+      color: ft
       outline: 0
     }
 
@@ -820,7 +825,7 @@ tsh() { text-shadow: arguments }
       }
     }
     &:hover svg, &:focus-within svg {
-      fill: ac i
+      fill: ft i
     }
   }
   #popup-options {
@@ -868,7 +873,7 @@ tsh() { text-shadow: arguments }
     }
     &-pedal{
       rad: 0 3px 3px 0
-      margin-left: -2px
+      margin-left: -2px i
     }
     button {
       margin-right: 1px
@@ -1146,14 +1151,6 @@ tsh() { text-shadow: arguments }
     border: 1px solid rgba(gy, .2)
   }
 
-  #footer a {
-    color: #f3f
-    transition: color 0.5s
-    &:hover {
-      color: #f3f i
-    }
-  }
-
   .svg-icon {
     transition: fill .5s
     fs: st
@@ -1208,9 +1205,9 @@ tsh() { text-shadow: arguments }
     border: 1px solid rgba(gy, .5)
     color: st
     &:hover, &:focus-within {
-      background-color: tb
+      background-color: rgba(ac, .7)
       border-color: ac
-      color: ac i
+      color: ft i
     }
     &#search-order {
       line-height: 22px
@@ -1231,9 +1228,9 @@ tsh() { text-shadow: arguments }
       border: 1px solid rgba(gy, .5)
       color: st
       &:hover, &:focus-within {
-        background-color: tb
+        background-color: rgba(ac, .7)
         border-color: ac
-        color: ac
+        color: ft
       }
     }
 
@@ -1317,7 +1314,7 @@ tsh() { text-shadow: arguments }
     .select-wrapper,
     .sorter-selection {
       &:hover, &:focus-within {
-        .svg-icon.select-arrow { fill: ac i }
+        .svg-icon.select-arrow { fill: ft }
       }
     }
     &-contents {
@@ -1343,7 +1340,7 @@ tsh() { text-shadow: arguments }
   }
 
   details[open] {
-    &:not(#sections-list):not(#filters):not(#actions):not(#backup) {
+    &:not(#sections-list):not(#filters):not(#actions):not(#backup):not(#publish) {
       min-height: 300px
       height: 10%
     }
@@ -1367,24 +1364,39 @@ tsh() { text-shadow: arguments }
 
       margin: 1px 2.5px
       rad: 0
-      &:hover {
+      &:hover, &:focus-within {
         background-color: fb
+        color: ac i
         border: 0
       }
     }
 
-    label:hover, .filter-selection:hover {
-      background-color: t
+    label, .filter-selection {
+      &:hover, &:focus-within {
+        background-color: t
+        select {
+          color: ac
+        }
+      }
+    }
+  }
+  .firefox {
+    .filter-selection {
+      .select-arrow {
+        margin-top: 5px
+      }
+      .select-resizer {
+        margin-top: -2px
+      }
     }
   }
 
   .active #filters-stats {
     background-color: gr
     border-color: gr
-    color: ft
+    color: fb
 
     padding: 5px 5px 3px 5px
-    margin-top: -2px
     rad: c_rad
   }
 
@@ -1456,19 +1468,8 @@ tsh() { text-shadow: arguments }
     }
 
     button {
-      background-color: tb
-      border: 1px solid rgba(gy, .5)
-      color: st i
-      transition: all .25s
-      &:hover, &:focus-within {
-        background-color: tb
-        border-color: ac
-        color: ac i
-        outline: 0
-      }
-
       &:active {
-        background-color: tb
+        background-color: rgba(ac, .7)
         border-color: ac
       }
 
@@ -1648,7 +1649,7 @@ tsh() { text-shadow: arguments }
 
       rad: 0 0 c_rad c_rad
       button:not(:disabled):hover {
-        background-color: sb
+        background-color: rgba(ac, .7)
         border-color: ac
       }
     }
@@ -1771,9 +1772,9 @@ tsh() { text-shadow: arguments }
     // this generally looks not as high element + now styling behaves consistently
     .sync-options .select-resizer {
       &:hover .select-arrow {
-        fill: ac i
+        fill: ft i
       }
-      .select-arrow { top: 5px }
+      .select-arrow { top: 6px }
     }
     select.cloud-name { height: 25px }
     // FF ignores color with 'auto'
@@ -2226,7 +2227,7 @@ tsh() { text-shadow: arguments }
     &-error {
       background-color: rd
       color: st
-      tsh: 0.5px 0.5px 6px rd
+      tsh: .5px .5px 6px rd
       animation: fadein .5s
     }
   }
@@ -2255,8 +2256,8 @@ tsh() { text-shadow: arguments }
     --invalid-color: rd
 
     // colorpicker-popup after all the tweaks nees to be slightly taller.
-    --fit-height: 251px i
-    --swatch-size: 10px i
+    --fit-height:  24rem i
+    --swatch-size: 16px i
   }
 
   .color-swatch {
@@ -2333,6 +2334,9 @@ tsh() { text-shadow: arguments }
         }
       }
     }
+    &-dropper {
+      filter: invert(1) i
+    }
 
     // apply custom border-radius here
     &-swatch, &-empty {
@@ -2380,14 +2384,6 @@ tsh() { text-shadow: arguments }
         .checkmate .svg-icon.checked {
           fs: ac
         }
-      }
-    }
-
-    // style select arrow on state + tweak top
-    .select-resizer {
-      .select-arrow { top: 6px } // 4px
-      &:hover, &:focus-within {
-        .select-arrow { fs: ac }
       }
     }
 
@@ -2735,8 +2731,16 @@ tsh() { text-shadow: arguments }
         margin-right: 1em i
       }
     }
-
   }
+  // colorpicker -format-changer tweaks
+  .colorpicker-format-change-button {
+    margin: -.1rem -.1rem
+  }
+
+  ::-webkit-resizer {
+    background-color: tb
+  }
+
   // tweak specific input types for consistency between FF and C
   input {
     &[type='color' i] {
