@@ -28,9 +28,9 @@
   },
   "scripts": {
     "authors": "bash tools/authors.sh",
-    "patch": "versions -p patch *.styl && git psh",
-    "minor": "versions -p minor *.styl && git psh",
-    "major": "versions -p major *.styl && git psh",
+    "patch": "versions patch -p -C *.styl && git psh",
+    "minor": "versions minor -p -C *.styl && git psh",
+    "major": "versions major -p -C *.styl && git psh",
     "fix": "eclint fix stylus-wardrobe.user.styl && eclint fix *.md",
     "update": "updates -cuU && npm install"
   }
