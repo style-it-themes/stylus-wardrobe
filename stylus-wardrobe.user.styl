@@ -1055,7 +1055,7 @@ tsh() { text-shadow: arguments }
       }
     }
 
-    &[type='text' i] {
+    &[type='text' i], &[type='time' i] {
       cp: tt 0 fb
       border: 1px solid rgba(gy, .5)
       &:hover {
@@ -1063,7 +1063,7 @@ tsh() { text-shadow: arguments }
       }
     }
 
-    &:invalid, &[required]:not(.config-value) {
+    &:invalid, &[required]:not(.config-value):not([type="time"]) {
       cp: tt 0 darken(rd, 70%)
       border: 1px solid darken(rd, 50%)
       &[data-focused-via-click] {
@@ -2521,6 +2521,18 @@ tsh() { text-shadow: arguments }
     }
   }
 
+  .meta-name {
+    font-size: .7em
+    max-width: calc(var(--header-width) - 35px)
+  }
+  .meta-version {
+    width: 200px
+  }
+  .meta-description {
+    white-space: pre-wrap
+    width: 80%
+  }
+
   .frame-url::before {
     content: 'iframe: '
     color: gy
@@ -2809,29 +2821,12 @@ tsh() { text-shadow: arguments }
     }
 
     .cm-fat-cursor-mark {
-      background-color: rgba(caret_color, .8)
-      -webkit-animation: blink 1.06s steps(1) infinite
-      -moz-animation: blink 1.06s steps(1) infinite
-      animation: blink 1.06s steps(1) infinite
+      animation: blink 1.2s linear infinite i
     }
 
     .cm-animate-fat-cursor {
-      -webkit-animation: blink 1.06s steps(1) infinite
-      -moz-animation: blink 1.06s steps(1) infinite
-      animation: blink 1.06s steps(1) infinite
+      animation: blink 1.2s linear infinite i
       background-color: caret_color
-    }
-
-    @-moz-keyframes blink {
-      0% {}
-      50% { background-color: t }
-      100% {}
-    }
-
-    @-webkit-keyframes blink {
-      0% {}
-      50% { background-color: t }
-      100% {}
     }
 
     @keyframes blink {
